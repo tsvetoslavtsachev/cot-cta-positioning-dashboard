@@ -50,11 +50,10 @@
     "title": "Euro FX",
     "date": "2026-04-07T00:00:00.000",
     "changes": [
-      "Primary cohort added to longs over the last 4 weeks.",
-      "Primary positioning sits near the 51th percentile of the selected history.",
-      "Primary and secondary cohorts remain in divergence.",
-      "Price rose 2.21% over the same 4-week window.",
-      "Current regime: Divergence."
+      "Primary cohort added to shorts over the last 4 weeks.",
+      "Primary positioning sits near the 33th percentile of the selected history.",
+      "Price rose 2.24% over the same 4-week window.",
+      "Current regime: Neutral / Transition."
     ]
   },
   {
@@ -85,11 +84,11 @@
     "title": "Bitcoin Futures",
     "date": "2026-04-07T00:00:00.000",
     "changes": [
-      "Primary cohort added to longs over the last 4 weeks.",
+      "Primary cohort added to shorts over the last 4 weeks.",
       "Primary positioning sits near the 97th percentile of the selected history.",
       "Primary and secondary cohorts remain in divergence.",
-      "Price rose 13.38% over the same 4-week window.",
-      "Current regime: Crowded Long."
+      "Price rose 13.24% over the same 4-week window.",
+      "Current regime: Neutral / Transition."
     ]
   },
   {
@@ -98,7 +97,7 @@
     "date": "2026-04-07T00:00:00.000",
     "changes": [
       "Primary cohort added to shorts over the last 4 weeks.",
-      "Primary positioning sits near the 51th percentile of the selected history.",
+      "Primary positioning sits near the 13th percentile of the selected history.",
       "Primary and secondary cohorts remain in divergence.",
       "Price rose 7.17% over the same 4-week window.",
       "Current regime: Divergence."

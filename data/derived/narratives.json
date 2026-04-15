@@ -27,7 +27,7 @@
     "market": "eurfx",
     "title": "Euro FX",
     "date": "2026-04-07T00:00:00.000",
-    "narrative": "Euro FX remains in a Divergence setup. Primary positioning is at the 51th percentile over the recent history. Over the last 4 weeks, net positioning rose by 3,226 contracts and is currently diverging from the secondary cohort. Price is up 2.21% over the same 4-week window."
+    "narrative": "Euro FX remains in a Neutral / Transition setup. Primary positioning is at the 33th percentile over the recent history. Over the last 4 weeks, net positioning fell by 4,349 contracts and is currently confirmed by the secondary cohort. Price is up 2.24% over the same 4-week window."
   },
   {
     "market": "gbpfx",
@@ -45,13 +45,13 @@
     "market": "bitcoin",
     "title": "Bitcoin Futures",
     "date": "2026-04-07T00:00:00.000",
-    "narrative": "Bitcoin Futures remains in a Crowded Long setup. Primary positioning is at the 97th percentile over the recent history. Over the last 4 weeks, net positioning rose by 20,743 contracts and is currently diverging from the secondary cohort. Price is up 13.38% over the same 4-week window."
+    "narrative": "Bitcoin Futures remains in a Neutral / Transition setup. Primary positioning is at the 97th percentile over the recent history. Over the last 4 weeks, net positioning fell by 25,515 contracts and is currently diverging from the secondary cohort. Price is up 13.24% over the same 4-week window."
   },
   {
     "market": "gold",
     "title": "Gold",
     "date": "2026-04-07T00:00:00.000",
-    "narrative": "Gold remains in a Divergence setup. Primary positioning is at the 51th percentile over the recent history. Over the last 4 weeks, net positioning fell by 662 contracts and is currently diverging from the secondary cohort. Price is up 7.17% over the same 4-week window."
+    "narrative": "Gold remains in a Divergence setup. Primary positioning is at the 13th percentile over the recent history. Over the last 4 weeks, net positioning fell by 10,123 contracts and is currently diverging from the secondary cohort. Price is up 7.17% over the same 4-week window."
   },
   {
     "market": "wti",
