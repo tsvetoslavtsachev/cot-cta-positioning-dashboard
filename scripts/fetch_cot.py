@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import math
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 
@@ -140,7 +141,6 @@ def ensure_dir(path: Path) -> None:
     path.mkdir(parents=True, exist_ok=True)
 
 
-
 def parse_num(value: Any) -> Optional[float]:
     if value in (None, ""):
         return None
@@ -150,12 +150,10 @@ def parse_num(value: Any) -> Optional[float]:
         return None
 
 
-
 def fetch_json(url: str, params: Optional[Dict[str, Any]] = None) -> Any:
     response = requests.get(url, params=params, headers=HEADERS, timeout=TIMEOUT)
     response.raise_for_status()
     return response.json()
-
 
 
 def fetch_price_series(symbol: str) -> List[Dict[str, Any]]:
@@ -174,6 +172,11 @@ def fetch_price_series(symbol: str) -> List[Dict[str, Any]]:
     except Exception:
         return []
 
+
+def none_safe_sub(a: Optional[float], b: Optional[float]) -> Optional[float]:
+    if a is None or b is None:
+        return None
+    return a - b
 
 
 def normalize_tff_row(row: Dict[str, Any]) -> Dict[str, Any]:
@@ -206,7 +209,6 @@ def normalize_tff_row(row: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-
 def normalize_disagg_row(row: Dict[str, Any]) -> Dict[str, Any]:
     managed_long = parse_num(row.get("m_money_positions_long_all"))
     managed_short = parse_num(row.get("m_money_positions_short_all"))
@@ -233,25 +235,13 @@ def normalize_disagg_row(row: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-
-def none_safe_sub(a: Optional[float], b: Optional[float]) -> Optional[float]:
-    if a is None or b is None:
-        return None
-    return a - b
-
-
-
 def sort_rows(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return sorted(rows, key=lambda x: x.get("date") or "")
 
 
-
 def fetch_market(market: Dict[str, Any]) -> Dict[str, Any]:
     family = market["report_family"]
-    if family == "tff":
-        base_url = BASE_TFF
-    else:
-        base_url = BASE_DISAGG
+    base_url = BASE_TFF if family == "tff" else BASE_DISAGG
 
     params = {
         "$limit": 5000,
@@ -289,11 +279,9 @@ def fetch_market(market: Dict[str, Any]) -> Dict[str, Any]:
     return payload
 
 
-
 def write_json(path: Path, payload: Any) -> None:
     ensure_dir(path.parent)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-
 
 
 def main() -> None:
@@ -335,6 +323,14 @@ def main() -> None:
             )
             print(f"✗ {market['key']}: {exc}")
 
-    from datetime import datetime, timezone
+    manifest["generated_at"] = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    manifest["derived_files"] = {
+        "watchlist": "derived/watchlist.json",
+        "weekly_changes": "derived/weekly_changes.json",
+        "narratives": "derived/narratives.json",
+    }
+    write_json(DATA_DIR / "manifest.json", manifest)
 
-    manifest["generated_at"] = datetime.now(
+
+if __name__ == "__main__":
+    main()
