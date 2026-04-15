@@ -218,6 +218,11 @@ def normalize_disagg_row(row: Dict[str, Any]) -> Dict[str, Any]:
     swap_short = parse_num(row.get("swap_positions_short_all"))
     oi = parse_num(row.get("open_interest_all"))
 
+    # For disaggregated (commodity) reports the analytically correct pairing is
+    # Managed Money (fast money / CTA proxy) vs. Producers/Commercials (natural
+    # hedgers with fundamental supply/demand information).  Swap Dealers are
+    # intermediaries — they move inversely to MM as counterparties and would
+    # appear as a misleading "inverse" secondary line if used here.
     return {
         "date": row.get("report_date_as_yyyy_mm_dd"),
         "market_name": row.get("market_and_exchange_names"),
@@ -225,12 +230,12 @@ def normalize_disagg_row(row: Dict[str, Any]) -> Dict[str, Any]:
         "primary_long": managed_long,
         "primary_short": managed_short,
         "primary_net": none_safe_sub(managed_long, managed_short),
-        "secondary_long": swap_long,
-        "secondary_short": swap_short,
-        "secondary_net": none_safe_sub(swap_long, swap_short),
-        "tertiary_long": producer_long,
-        "tertiary_short": producer_short,
-        "tertiary_net": none_safe_sub(producer_long, producer_short),
+        "secondary_long": producer_long,
+        "secondary_short": producer_short,
+        "secondary_net": none_safe_sub(producer_long, producer_short),
+        "tertiary_long": swap_long,
+        "tertiary_short": swap_short,
+        "tertiary_net": none_safe_sub(swap_long, swap_short),
         "report_family": "disaggregated",
     }
 

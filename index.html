@@ -487,6 +487,24 @@ function regimeColor(regime) {
   return map[regime] || '#64748b';
 }
 
+// Cohort labels vary by report family:
+//   TFF (financial futures):    Leveraged Money | Asset Managers | Dealers
+//   Disaggregated (commodities): Managed Money  | Commercials    | Swap Dealers
+function cohortLabels(reportFamily) {
+  if (reportFamily === 'disaggregated') {
+    return {
+      primary:   'Managed Money (Fast Money)',
+      secondary: 'Commercials / Producers',
+      tertiary:  'Swap Dealers',
+    };
+  }
+  return {
+    primary:   'Leveraged Money (Fast Money)',
+    secondary: 'Asset Managers (Slow Money)',
+    tertiary:  'Dealers',
+  };
+}
+
 // ── Data Loading ────────────────────────────────────────────────────────────
 async function fetchJson(path) {
   const res = await fetch(path);
@@ -643,6 +661,8 @@ function renderMarket(key) {
   }
 
   // ── Net Chart ──
+  const reportFamily = market.metadata?.report_family || 'tff';
+  const cLabels = cohortLabels(reportFamily);
   const labels = cot.map(r => r.date ? r.date.slice(0, 10) : '');
   const netData = cot.map(r => r.primary_net);
   const secData = cot.map(r => r.secondary_net);
@@ -655,7 +675,7 @@ function renderMarket(key) {
       labels,
       datasets: [
         {
-          label: 'Primary Net (Fast Money)',
+          label: cLabels.primary,
           data: netData,
           borderColor: rColor,
           backgroundColor: rColor + '18',
@@ -665,7 +685,7 @@ function renderMarket(key) {
           borderWidth: 2,
         },
         {
-          label: 'Secondary Net (Slow Money)',
+          label: cLabels.secondary,
           data: secData,
           borderColor: '#6366f1',
           backgroundColor: 'transparent',
@@ -752,7 +772,7 @@ function renderMarket(key) {
   state.charts['cohort-chart'] = new Chart($('cohort-chart').getContext('2d'), {
     type: 'bar',
     data: {
-      labels: ['Primary\n(Fast Money)', 'Secondary\n(Slow Money)', 'Tertiary\n(Dealer/Hedger)'],
+      labels: [cLabels.primary, cLabels.secondary, cLabels.tertiary],
       datasets: [{
         label: 'Net Contracts',
         data: [latestRow.primary_net, latestRow.secondary_net, latestRow.tertiary_net],
