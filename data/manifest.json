@@ -1,0 +1,115 @@
+{
+  "generated_at": "2026-04-15T20:23:30.135125Z",
+  "sources": {
+    "tff": "https://publicreporting.cftc.gov/resource/gpe5-46if.json",
+    "disaggregated": "https://publicreporting.cftc.gov/resource/kh3c-gbw2.json",
+    "price": "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?range=3y&interval=1wk"
+  },
+  "markets": [
+    {
+      "key": "sp500",
+      "title": "E-mini S&P 500",
+      "subtitle": "US Equities",
+      "report_family": "tff",
+      "file": "markets/sp500.json",
+      "record_count": 156,
+      "price_label": "S&P 500"
+    },
+    {
+      "key": "nasdaq",
+      "title": "Nasdaq Mini",
+      "subtitle": "US Equities",
+      "report_family": "tff",
+      "file": "markets/nasdaq.json",
+      "record_count": 156,
+      "price_label": "Nasdaq 100"
+    },
+    {
+      "key": "us10y",
+      "title": "UST 10Y Note",
+      "subtitle": "Rates",
+      "report_family": "tff",
+      "file": "markets/us10y.json",
+      "record_count": 156,
+      "price_label": "US 10Y Note"
+    },
+    {
+      "key": "vix",
+      "title": "VIX Futures",
+      "subtitle": "Volatility",
+      "report_family": "tff",
+      "file": "markets/vix.json",
+      "record_count": 156,
+      "price_label": "VIX"
+    },
+    {
+      "key": "eurfx",
+      "title": "Euro FX",
+      "subtitle": "FX",
+      "report_family": "tff",
+      "file": "markets/eurfx.json",
+      "record_count": 156,
+      "price_label": "EUR/USD"
+    },
+    {
+      "key": "gbpfx",
+      "title": "British Pound",
+      "subtitle": "FX",
+      "report_family": "tff",
+      "file": "markets/gbpfx.json",
+      "record_count": 156,
+      "price_label": "GBP/USD"
+    },
+    {
+      "key": "dxy",
+      "title": "USD Index",
+      "subtitle": "FX",
+      "report_family": "tff",
+      "file": "markets/dxy.json",
+      "record_count": 156,
+      "price_label": "DXY"
+    },
+    {
+      "key": "bitcoin",
+      "title": "Bitcoin Futures",
+      "subtitle": "Crypto",
+      "report_family": "tff",
+      "file": "markets/bitcoin.json",
+      "record_count": 156,
+      "price_label": "BTC/USD"
+    },
+    {
+      "key": "gold",
+      "title": "Gold",
+      "subtitle": "Commodities",
+      "report_family": "disaggregated",
+      "file": "markets/gold.json",
+      "record_count": 156,
+      "price_label": "Gold Futures"
+    },
+    {
+      "key": "wti",
+      "title": "WTI Crude",
+      "subtitle": "Commodities",
+      "report_family": "disaggregated",
+      "file": "markets/wti.json",
+      "record_count": 156,
+      "price_label": "WTI Futures"
+    },
+    {
+      "key": "corn",
+      "title": "Corn",
+      "subtitle": "Commodities",
+      "report_family": "disaggregated",
+      "file": "markets/corn.json",
+      "record_count": 156,
+      "price_label": "Corn Futures"
+    }
+  ],
+  "failures": [],
+  "derived_files": {
+    "watchlist": "derived/watchlist.json",
+    "weekly_changes": "derived/weekly_changes.json",
+    "narratives": "derived/narratives.json"
+  }
+}
