@@ -244,6 +244,51 @@ def sort_rows(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return sorted(rows, key=lambda x: x.get("date") or "")
 
 
+def deduplicate_by_date(raw_rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Keep exactly one raw API row per report date.
+
+    The CFTC LIKE query can return multiple contract variants for the same date
+    (e.g. standard + E-Micro + different exchange listings).  Mixing them
+    produces spurious spikes and null fields in the output.
+
+    Strategy:
+    1. Drop rows whose name contains 'MICRO' or 'MINI-SIZED' (sub-standard
+       contracts that often lack full cohort reporting).
+    2. Among remaining rows for the same date, keep the one with the highest
+       open_interest_all — that is the primary, most liquid contract.
+    """
+    from collections import defaultdict
+
+    # Step 1 — exclude sub-standard contract variants
+    EXCLUDE = ("MICRO", "MINI-SIZED")
+    filtered = [
+        r for r in raw_rows
+        if not any(kw in str(r.get("market_and_exchange_names", "")).upper() for kw in EXCLUDE)
+    ]
+    if not filtered:
+        filtered = raw_rows  # fallback: nothing left after filtering
+
+    # Step 2 — group by date, pick highest open interest
+    by_date: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+    for row in filtered:
+        date_key = row.get("report_date_as_yyyy_mm_dd") or ""
+        by_date[date_key].append(row)
+
+    result = []
+    for date_key, date_rows in by_date.items():
+        if len(date_rows) == 1:
+            result.append(date_rows[0])
+        else:
+            best = max(
+                date_rows,
+                key=lambda r: float(
+                    str(r.get("open_interest_all") or 0).replace(",", "") or 0
+                ),
+            )
+            result.append(best)
+    return result
+
+
 def fetch_market(market: Dict[str, Any]) -> Dict[str, Any]:
     family = market["report_family"]
     base_url = BASE_TFF if family == "tff" else BASE_DISAGG
@@ -255,12 +300,14 @@ def fetch_market(market: Dict[str, Any]) -> Dict[str, Any]:
     }
     rows = fetch_json(base_url, params=params)
 
-    # Exclude combined/consolidated reports — they duplicate individual exchange rows
-    # and cause apparent spikes when mixed with the standard series.
+    # Step 1 — drop COMBINED/CONSOLIDATED entries (they double-count positions)
     rows = [
         r for r in rows
         if "COMBINED" not in str(r.get("market_and_exchange_names", "")).upper()
     ]
+
+    # Step 2 — one row per date: drop MICRO/MINI-SIZED, keep highest open interest
+    rows = deduplicate_by_date(rows)
 
     normalizer = normalize_tff_row if family == "tff" else normalize_disagg_row
     normalized = [normalizer(row) for row in rows][-LOOKBACK:]
