@@ -78,6 +78,7 @@ MARKETS: List[Dict[str, Any]] = [
         "report_family": "tff",
         "query_name": "EURO FX",
         "name_must_contain": "CHICAGO MERCANTILE",   # pin to CME listing only
+        "name_must_not_contain": "/",                # exclude EUR/GBP, EUR/JPY cross-rates
         "price_symbol": "EURUSD=X",
         "price_label": "EUR/USD",
     },
@@ -312,7 +313,7 @@ def fetch_market(market: Dict[str, Any]) -> Dict[str, Any]:
         if "COMBINED" not in str(r.get("market_and_exchange_names", "")).upper()
     ]
 
-    # Step 3 — apply optional name_must_contain filter (pins to a specific exchange listing)
+    # Step 3 — apply optional name filters (pin to specific exchange / exclude cross-rates)
     must_contain = market.get("name_must_contain")
     if must_contain:
         pinned = [
@@ -323,6 +324,13 @@ def fetch_market(market: Dict[str, Any]) -> Dict[str, Any]:
             rows = pinned
         else:
             print(f"  [{market['key']}] WARNING: name_must_contain '{must_contain}' matched nothing — using all rows")
+
+    must_not_contain = market.get("name_must_not_contain")
+    if must_not_contain:
+        rows = [
+            r for r in rows
+            if must_not_contain.upper() not in str(r.get("market_and_exchange_names", "")).upper()
+        ]
 
     # Step 4 — one row per date: drop MICRO/MINI-SIZED, keep highest open interest
     rows = deduplicate_by_date(rows)
