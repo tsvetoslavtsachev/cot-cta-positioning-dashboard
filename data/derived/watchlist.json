@@ -1,21 +1,5 @@
 [
   {
-    "market": "bitcoin",
-    "title": "Bitcoin Futures",
-    "subtitle": "Crypto",
-    "date": "2026-04-07T00:00:00.000",
-    "score": 96.28,
-    "regime": "Neutral / Transition",
-    "primary_percentile": 97.44,
-    "primary_zscore": 2.6726,
-    "primary_net": 30932.0,
-    "primary_delta_4w": -25515.0,
-    "secondary_net": 0.0,
-    "price_change_4w_pct": 13.24,
-    "takeaway": "Positioning is easing without a clear high-conviction signal.",
-    "rank": 1
-  },
-  {
     "market": "corn",
     "title": "Corn",
     "subtitle": "Commodities",
@@ -29,7 +13,7 @@
     "secondary_net": -487004.0,
     "price_change_4w_pct": -2.22,
     "takeaway": "Fast money and slower cohorts are pulling in different directions.",
-    "rank": 2
+    "rank": 1
   },
   {
     "market": "gold",
@@ -45,7 +29,7 @@
     "secondary_net": -21959.0,
     "price_change_4w_pct": 7.17,
     "takeaway": "Fast money and slower cohorts are pulling in different directions.",
-    "rank": 3
+    "rank": 2
   },
   {
     "market": "vix",
@@ -61,7 +45,7 @@
     "secondary_net": 15570.0,
     "price_change_4w_pct": -41.48,
     "takeaway": "Fast money and slower cohorts are pulling in different directions.",
-    "rank": 4
+    "rank": 3
   },
   {
     "market": "sp500",
@@ -77,6 +61,22 @@
     "secondary_net": 634289.0,
     "price_change_4w_pct": 10.07,
     "takeaway": "Positioning remains stretched on the long side (99th percentile).",
+    "rank": 4
+  },
+  {
+    "market": "bitcoin",
+    "title": "Bitcoin Futures",
+    "subtitle": "Crypto",
+    "date": "2026-04-07T00:00:00.000",
+    "score": 51.07,
+    "regime": "Divergence",
+    "primary_percentile": 75.64,
+    "primary_zscore": 0.9918,
+    "primary_net": -8427.0,
+    "primary_delta_4w": 1252.0,
+    "secondary_net": 4573.0,
+    "price_change_4w_pct": 13.21,
+    "takeaway": "Fast money and slower cohorts are pulling in different directions.",
     "rank": 5
   },
   {
@@ -139,7 +139,7 @@
     "primary_net": 882.0,
     "primary_delta_4w": -4349.0,
     "secondary_net": 258050.0,
-    "price_change_4w_pct": 2.24,
+    "price_change_4w_pct": 2.19,
     "takeaway": "Positioning is easing without a clear high-conviction signal.",
     "rank": 9
   },
@@ -171,7 +171,7 @@
     "primary_net": 4438.0,
     "primary_delta_4w": -1840.0,
     "secondary_net": 22196.0,
-    "price_change_4w_pct": -2.06,
+    "price_change_4w_pct": -2.07,
     "takeaway": "Positioning is easing without a clear high-conviction signal.",
     "rank": 11
   }
