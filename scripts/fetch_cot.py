@@ -77,6 +77,7 @@ MARKETS: List[Dict[str, Any]] = [
         "subtitle": "FX",
         "report_family": "tff",
         "query_name": "EURO FX",
+        "name_must_contain": "CHICAGO MERCANTILE",   # pin to CME listing only
         "price_symbol": "EURUSD=X",
         "price_label": "EUR/USD",
     },
@@ -104,6 +105,7 @@ MARKETS: List[Dict[str, Any]] = [
         "subtitle": "Crypto",
         "report_family": "tff",
         "query_name": "BITCOIN",
+        "name_must_contain": "CHICAGO MERCANTILE",   # pin to CME listing only
         "price_symbol": "BTC-USD",
         "price_label": "BTC/USD",
     },
@@ -268,10 +270,10 @@ def deduplicate_by_date(raw_rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     if not filtered:
         filtered = raw_rows  # fallback: nothing left after filtering
 
-    # Step 2 — group by date, pick highest open interest
+    # Step 2 — group by date (normalise to YYYY-MM-DD, Socrata may return full timestamps)
     by_date: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     for row in filtered:
-        date_key = row.get("report_date_as_yyyy_mm_dd") or ""
+        date_key = str(row.get("report_date_as_yyyy_mm_dd") or "")[:10]
         by_date[date_key].append(row)
 
     result = []
@@ -300,13 +302,29 @@ def fetch_market(market: Dict[str, Any]) -> Dict[str, Any]:
     }
     rows = fetch_json(base_url, params=params)
 
-    # Step 1 — drop COMBINED/CONSOLIDATED entries (they double-count positions)
+    # Step 1 — log unique market names found (diagnostic: visible in Actions logs)
+    unique_names = sorted({r.get("market_and_exchange_names", "") for r in rows})
+    print(f"  [{market['key']}] {len(rows)} raw rows, unique names: {unique_names}")
+
+    # Step 2 — drop COMBINED/CONSOLIDATED entries (they double-count positions)
     rows = [
         r for r in rows
         if "COMBINED" not in str(r.get("market_and_exchange_names", "")).upper()
     ]
 
-    # Step 2 — one row per date: drop MICRO/MINI-SIZED, keep highest open interest
+    # Step 3 — apply optional name_must_contain filter (pins to a specific exchange listing)
+    must_contain = market.get("name_must_contain")
+    if must_contain:
+        pinned = [
+            r for r in rows
+            if must_contain.upper() in str(r.get("market_and_exchange_names", "")).upper()
+        ]
+        if pinned:
+            rows = pinned
+        else:
+            print(f"  [{market['key']}] WARNING: name_must_contain '{must_contain}' matched nothing — using all rows")
+
+    # Step 4 — one row per date: drop MICRO/MINI-SIZED, keep highest open interest
     rows = deduplicate_by_date(rows)
 
     normalizer = normalize_tff_row if family == "tff" else normalize_disagg_row
