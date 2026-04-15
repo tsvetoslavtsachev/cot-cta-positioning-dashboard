@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COT-CTA Positioning Monitor</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --border: #2e3347;
+      --text: #e2e8f0;
+      --text-muted: #8892a4;
+      --accent: #6366f1;
+      --accent2: #818cf8;
+
+      --crowded-long: #22c55e;
+      --crowded-short: #ef4444;
+      --contrarian-long: #14b8a6;
+      --contrarian-short: #f97316;
+      --divergence: #a855f7;
+      --neutral: #64748b;
+
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    html { font-size: 14px; background: var(--bg); color: var(--text); font-family: var(--font); }
+    body { min-height: 100vh; }
+    a { color: var(--accent2); text-decoration: none; }
+
+    /* ── Header ── */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0.75rem 0;
+      flex-wrap: wrap;
+    }
+    .header-title { flex: 0 0 auto; }
+    .header-title h1 { font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+    .header-title p { font-size: 0.78rem; color: var(--text-muted); margin-top: 1px; }
+    .header-controls { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-left: auto; }
+    .header-controls select, .header-controls button {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.82rem;
+      cursor: pointer;
+      outline: none;
+    }
+    .header-controls select:focus, .header-controls button:focus { border-color: var(--accent); }
+    .header-badge {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.25rem 0.65rem;
+      white-space: nowrap;
+    }
+    #status-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--crowded-long);
+      margin-right: 5px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* ── Layout ── */
+    .main { max-width: 1400px; margin: 0 auto; padding: 1.25rem 1.5rem 3rem; }
+
+    /* ── Loading / Error ── */
+    #loading-state, #error-state {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 60vh; flex-direction: column; gap: 1rem; text-align: center;
+    }
+    #error-state { color: var(--crowded-short); }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── KPI Strip ── */
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+    }
+    .kpi-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.35rem; }
+    .kpi-value { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+    .kpi-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem; }
+    .pos { color: var(--crowded-long); }
+    .neg { color: var(--crowded-short); }
+    .neu { color: var(--text-muted); }
+
+    /* ── Section Grid ── */
+    .section-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .section-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+    .card-full { grid-column: 1 / -1; }
+    .card-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Regime Badge ── */
+    .regime-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .regime-crowded-long    { background: rgba(34,197,94,0.15); color: var(--crowded-long); }
+    .regime-crowded-short   { background: rgba(239,68,68,0.15); color: var(--crowded-short); }
+    .regime-contrarian-long { background: rgba(20,184,166,0.15); color: var(--contrarian-long); }
+    .regime-contrarian-short{ background: rgba(249,115,22,0.15); color: var(--contrarian-short); }
+    .regime-divergence      { background: rgba(168,85,247,0.15); color: var(--divergence); }
+    .regime-neutral         { background: rgba(100,116,139,0.15); color: var(--neutral); }
+
+    /* ── Narrative Card ── */
+    .narrative-text {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .narrative-date { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.75rem; }
+
+    /* ── Changes List ── */
+    .changes-list { list-style: none; }
+    .changes-list li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .changes-list li:last-child { border-bottom: none; }
+    .changes-list li::before { content: "→ "; color: var(--accent2); font-weight: 700; }
+
+    /* ── Watchlist Table ── */
+    .watchlist-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .watchlist-table th {
+      text-align: left;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .watchlist-table td {
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      color: var(--text);
+    }
+    .watchlist-table tr:last-child td { border-bottom: none; }
+    .watchlist-table tr { cursor: pointer; transition: background 0.1s; }
+    .watchlist-table tr:hover td { background: rgba(99,102,241,0.06); }
+    .watchlist-table tr.active td { background: rgba(99,102,241,0.12); }
+    .rank-num { font-weight: 700; color: var(--text-muted); font-size: 0.78rem; width: 28px; }
+    .score-bar {
+      display: inline-block;
+      height: 5px;
+      border-radius: 3px;
+      background: var(--accent);
+      opacity: 0.7;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+    .takeaway-cell { color: var(--text-muted); font-size: 0.78rem; max-width: 240px; }
+
+    /* ── Charts ── */
+    .chart-wrap { position: relative; height: 220px; }
+    .chart-wrap-tall { position: relative; height: 280px; }
+
+    /* ── Historical Table ── */
+    .hist-wrap { overflow-x: auto; }
+    .hist-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    .hist-table th {
+      text-align: right;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.4rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .hist-table th:first-child { text-align: left; }
+    .hist-table td {
+      text-align: right;
+      padding: 0.4rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .hist-table td:first-child { text-align: left; color: var(--text); }
+    .hist-table tr:last-child td { border-bottom: none; }
+    .hist-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* ── Cohort Bar Chart ── */
+    .cohort-bar-wrap { height: 180px; position: relative; }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      line-height: 1.8;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .kpi-strip { grid-template-columns: 1fr 1fr; }
+      .section-grid-2, .section-grid-3 { grid-template-columns: 1fr; }
+      .header-inner { gap: 0.75rem; }
+    }
+    @media (max-width: 560px) {
+      .kpi-strip { grid-template-columns: 1fr 1fr; }
+      .main { padding: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-title">
+      <h1>COT-CTA Positioning Monitor</h1>
+      <p>Weekly positioning across FX, rates, equities, volatility and commodities</p>
+    </div>
+    <div class="header-controls">
+      <select id="market-select" title="Select market"></select>
+      <select id="lookback-select" title="Lookback period">
+        <option value="52">1 Year</option>
+        <option value="104">2 Years</option>
+        <option value="156" selected>3 Years</option>
+      </select>
+      <span class="header-badge" id="updated-badge">Loading…</span>
+      <span class="header-badge"><span id="status-dot"></span>Positions as of Tuesday · Released Friday</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── Main ── -->
+<main class="main">
+  <div id="loading-state">
+    <div class="spinner"></div>
+    <p>Loading COT data…</p>
+  </div>
+  <div id="error-state" style="display:none;">
+    <p id="error-msg"></p>
+    <p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.5rem;">
+      Run <code>python scripts/fetch_cot.py</code> and <code>python scripts/derive_metrics.py</code> to generate data files.
+    </p>
+  </div>
+  <div id="dashboard" style="display:none;">
+
+    <!-- KPI Strip -->
+    <div class="kpi-strip" id="kpi-strip">
+      <div class="kpi-card">
+        <div class="kpi-label">Primary Net</div>
+        <div class="kpi-value" id="kpi-net">—</div>
+        <div class="kpi-sub" id="kpi-net-sub">contracts</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Percentile</div>
+        <div class="kpi-value" id="kpi-pct">—</div>
+        <div class="kpi-sub" id="kpi-pct-sub">of history</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">4W Delta</div>
+        <div class="kpi-value" id="kpi-delta">—</div>
+        <div class="kpi-sub" id="kpi-delta-sub">contracts</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Price 4W</div>
+        <div class="kpi-value" id="kpi-price">—</div>
+        <div class="kpi-sub" id="kpi-price-sub">change</div>
+      </div>
+    </div>
+
+    <!-- Row: Net Chart + Narrative -->
+    <div class="section-grid-2" style="grid-template-columns: 2fr 1fr;">
+      <div class="card">
+        <div class="card-title">Crowd Regime — Primary Net Position</div>
+        <div class="chart-wrap-tall">
+          <canvas id="net-chart"></canvas>
+        </div>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;gap:1rem;">
+        <div>
+          <div class="card-title">Signal Narrative</div>
+          <div class="narrative-text" id="narrative-text">—</div>
+          <div class="narrative-date" id="narrative-date"></div>
+        </div>
+        <div style="margin-top:auto;">
+          <div class="card-title" style="margin-bottom:0.5rem;">Regime</div>
+          <span class="regime-badge" id="regime-badge-main">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row: Cohort Structure + What Changed -->
+    <div class="section-grid-2">
+      <div class="card">
+        <div class="card-title">Cross-Cohort Structure</div>
+        <div class="cohort-bar-wrap">
+          <canvas id="cohort-chart"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">What Changed This Week?</div>
+        <ul class="changes-list" id="changes-list"></ul>
+      </div>
+    </div>
+
+    <!-- Price vs Positioning -->
+    <div class="card" style="margin-bottom:0.75rem;">
+      <div class="card-title">Price vs Primary Positioning</div>
+      <div class="chart-wrap-tall">
+        <canvas id="price-chart"></canvas>
+      </div>
+    </div>
+
+    <!-- Watchlist -->
+    <div class="card" style="margin-bottom:0.75rem;">
+      <div class="card-title">Watchlist Ranking — All Markets</div>
+      <div style="overflow-x:auto;">
+        <table class="watchlist-table" id="watchlist-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Market</th>
+              <th>Regime</th>
+              <th>Score</th>
+              <th>Percentile</th>
+              <th>4W Δ</th>
+              <th>Price 4W</th>
+              <th>Takeaway</th>
+            </tr>
+          </thead>
+          <tbody id="watchlist-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Historical Table -->
+    <div class="card">
+      <div class="card-title">Historical Data</div>
+      <div class="hist-wrap">
+        <table class="hist-table" id="hist-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Primary Long</th>
+              <th>Primary Short</th>
+              <th>Primary Net</th>
+              <th>4W Δ</th>
+              <th>Secondary Net</th>
+              <th>Open Interest</th>
+            </tr>
+          </thead>
+          <tbody id="hist-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /#dashboard -->
+</main>
+
+<footer class="footer">
+  Data sourced from the <a href="https://publicreporting.cftc.gov/" target="_blank">CFTC Public Reporting API</a>.
+  Leveraged Money = fast-money/CTA proxy. Asset Managers = slow-money/allocator proxy.
+  Positions are as of the preceding Tuesday, released each Friday at 3:30 PM ET.
+  This dashboard does not constitute investment advice.
+</footer>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+const state = {
+  manifest: null,
+  watchlist: null,
+  changes: null,
+  narratives: null,
+  markets: {},        // key → parsed market JSON
+  currentKey: null,
+  lookback: 156,
+  charts: {},
+};
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+
+function fmt(n, decimals = 0) {
+  if (n == null) return '—';
+  return Number(n).toLocaleString('en-US', { maximumFractionDigits: decimals, minimumFractionDigits: decimals });
+}
+function fmtPct(n) {
+  if (n == null) return '—';
+  const s = Number(n).toFixed(1);
+  return (n >= 0 ? '+' : '') + s + '%';
+}
+function signClass(n) {
+  if (n == null) return 'neu';
+  return n > 0 ? 'pos' : n < 0 ? 'neg' : 'neu';
+}
+
+function regimeCssKey(regime) {
+  if (!regime) return 'neutral';
+  const map = {
+    'Crowded Long': 'crowded-long',
+    'Crowded Short': 'crowded-short',
+    'Contrarian Long': 'contrarian-long',
+    'Contrarian Short': 'contrarian-short',
+    'Divergence': 'divergence',
+  };
+  return map[regime] || 'neutral';
+}
+
+function regimeColor(regime) {
+  const map = {
+    'Crowded Long': '#22c55e',
+    'Crowded Short': '#ef4444',
+    'Contrarian Long': '#14b8a6',
+    'Contrarian Short': '#f97316',
+    'Divergence': '#a855f7',
+  };
+  return map[regime] || '#64748b';
+}
+
+// ── Data Loading ────────────────────────────────────────────────────────────
+async function fetchJson(path) {
+  const res = await fetch(path);
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText} — ${path}`);
+  return res.json();
+}
+
+async function loadAll() {
+  try {
+    state.manifest = await fetchJson('data/manifest.json');
+  } catch (e) {
+    showError('Could not load data/manifest.json. ' + e.message);
+    return;
+  }
+
+  // Update header badge
+  if (state.manifest.generated_at) {
+    const d = new Date(state.manifest.generated_at);
+    $('updated-badge').textContent = 'Updated ' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  // Populate market selector
+  const sel = $('market-select');
+  state.manifest.markets.forEach(m => {
+    const opt = document.createElement('option');
+    opt.value = m.key;
+    opt.textContent = m.title + ' · ' + m.subtitle;
+    sel.appendChild(opt);
+  });
+
+  // Load derived files (non-fatal if missing)
+  try { state.watchlist = await fetchJson('data/derived/watchlist.json'); } catch (_) {}
+  try { state.changes = await fetchJson('data/derived/weekly_changes.json'); } catch (_) {}
+  try { state.narratives = await fetchJson('data/derived/narratives.json'); } catch (_) {}
+
+  $('loading-state').style.display = 'none';
+  $('dashboard').style.display = 'block';
+
+  // Select first market
+  const firstKey = state.manifest.markets[0]?.key;
+  if (firstKey) selectMarket(firstKey);
+
+  // Render watchlist
+  if (state.watchlist) renderWatchlist();
+}
+
+function showError(msg) {
+  $('loading-state').style.display = 'none';
+  $('error-state').style.display = 'flex';
+  $('error-msg').textContent = msg;
+}
+
+// ── Market Selection ────────────────────────────────────────────────────────
+async function selectMarket(key) {
+  state.currentKey = key;
+  $('market-select').value = key;
+
+  // Load market JSON if not cached
+  if (!state.markets[key]) {
+    const meta = state.manifest.markets.find(m => m.key === key);
+    if (!meta) return;
+    try {
+      state.markets[key] = await fetchJson('data/' + meta.file);
+    } catch (e) {
+      console.warn('Could not load market data for', key, e);
+      return;
+    }
+  }
+
+  renderMarket(key);
+}
+
+// ── Render Market ───────────────────────────────────────────────────────────
+function renderMarket(key) {
+  const market = state.markets[key];
+  if (!market) return;
+
+  const lookback = parseInt($('lookback-select').value) || 156;
+  const cot = (market.cot || []).slice(-lookback);
+  const prices = market.prices || [];
+
+  if (!cot.length) return;
+
+  const latest = cot[cot.length - 1];
+  const prev4 = cot.length >= 5 ? cot[cot.length - 5] : null;
+
+  // Compute metrics on the frontend (mirrors derive_metrics.py)
+  const nets = cot.map(r => r.primary_net).filter(v => v != null);
+  const currentNet = latest.primary_net;
+
+  const pctile = percentile(nets, currentNet);
+  const zs = zscore(nets, currentNet);
+  const delta4w = prev4 ? (currentNet - prev4.primary_net) : 0;
+
+  // Price 4W
+  let price4w = null;
+  if (prices.length >= 5) {
+    const pc = prices[prices.length - 1]?.close;
+    const po = prices[prices.length - 5]?.close;
+    if (pc && po && po !== 0) price4w = ((pc - po) / Math.abs(po)) * 100;
+  }
+
+  // Regime from server data (watchlist) or compute
+  let regime = 'Neutral / Transition';
+  if (state.watchlist) {
+    const w = state.watchlist.find(r => r.market === key);
+    if (w) regime = w.regime;
+  }
+
+  // ── KPI Strip ──
+  const netEl = $('kpi-net');
+  netEl.textContent = fmt(currentNet);
+  netEl.className = 'kpi-value ' + signClass(currentNet);
+
+  const pctEl = $('kpi-pct');
+  pctEl.textContent = pctile.toFixed(0) + 'th';
+  const pctColor = pctile >= 80 ? 'pos' : pctile <= 20 ? 'neg' : 'neu';
+  pctEl.className = 'kpi-value ' + pctColor;
+
+  const deltaEl = $('kpi-delta');
+  deltaEl.textContent = (delta4w >= 0 ? '+' : '') + fmt(delta4w);
+  deltaEl.className = 'kpi-value ' + signClass(delta4w);
+
+  const priceEl = $('kpi-price');
+  priceEl.textContent = price4w != null ? fmtPct(price4w) : '—';
+  priceEl.className = 'kpi-value ' + signClass(price4w);
+
+  // ── Regime badge ──
+  const badge = $('regime-badge-main');
+  badge.textContent = regime;
+  badge.className = 'regime-badge regime-' + regimeCssKey(regime);
+
+  // ── Narrative ──
+  if (state.narratives) {
+    const n = state.narratives.find(r => r.market === key);
+    if (n) {
+      $('narrative-text').textContent = n.narrative;
+      $('narrative-date').textContent = n.date ? 'Report date: ' + n.date : '';
+    }
+  }
+
+  // ── What Changed ──
+  const changesList = $('changes-list');
+  changesList.innerHTML = '';
+  if (state.changes) {
+    const c = state.changes.find(r => r.market === key);
+    if (c?.changes) {
+      c.changes.forEach(bullet => {
+        const li = document.createElement('li');
+        li.textContent = bullet;
+        changesList.appendChild(li);
+      });
+    }
+  }
+
+  // ── Net Chart ──
+  const labels = cot.map(r => r.date ? r.date.slice(0, 10) : '');
+  const netData = cot.map(r => r.primary_net);
+  const secData = cot.map(r => r.secondary_net);
+  const rColor = regimeColor(regime);
+
+  destroyChart('net-chart');
+  state.charts['net-chart'] = new Chart($('net-chart').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Primary Net (Fast Money)',
+          data: netData,
+          borderColor: rColor,
+          backgroundColor: rColor + '18',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 0,
+          borderWidth: 2,
+        },
+        {
+          label: 'Secondary Net (Slow Money)',
+          data: secData,
+          borderColor: '#6366f1',
+          backgroundColor: 'transparent',
+          tension: 0.3,
+          pointRadius: 0,
+          borderWidth: 1.5,
+          borderDash: [4, 3],
+        },
+      ],
+    },
+    options: chartOptions({ yLabel: 'Net Contracts', zeroLine: true }),
+  });
+
+  // ── Price vs Positioning ──
+  const pLabels = [];
+  const pClose = [];
+  const pNet = [];
+
+  // Align by date
+  const cotByDate = {};
+  cot.forEach(r => { if (r.date) cotByDate[r.date.slice(0,10)] = r.primary_net; });
+  prices.forEach(p => {
+    const d = p.timestamp ? new Date(p.timestamp * 1000).toISOString().slice(0,10) : null;
+    if (d && cotByDate[d] != null) {
+      pLabels.push(d);
+      pClose.push(p.close);
+      pNet.push(cotByDate[d]);
+    }
+  });
+
+  // If no price alignment, just show prices on their own
+  const priceLabels = prices.slice(-lookback).map(p => {
+    if (!p.timestamp) return '';
+    return new Date(p.timestamp * 1000).toISOString().slice(0,10);
+  });
+  const closeData = prices.slice(-lookback).map(p => p.close);
+
+  destroyChart('price-chart');
+  state.charts['price-chart'] = new Chart($('price-chart').getContext('2d'), {
+    data: {
+      labels: priceLabels,
+      datasets: [
+        {
+          type: 'line',
+          label: market.metadata?.price_label || 'Price',
+          data: closeData,
+          borderColor: '#f8fafc',
+          backgroundColor: 'transparent',
+          tension: 0.3,
+          pointRadius: 0,
+          borderWidth: 2,
+          yAxisID: 'y',
+        },
+        {
+          type: 'bar',
+          label: 'Primary Net',
+          data: netData.slice(-priceLabels.length),
+          backgroundColor: netData.slice(-priceLabels.length).map(v =>
+            v >= 0 ? 'rgba(34,197,94,0.45)' : 'rgba(239,68,68,0.45)'
+          ),
+          borderWidth: 0,
+          yAxisID: 'y1',
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: '#8892a4', font: { size: 11 } } },
+        tooltip: { mode: 'index', intersect: false },
+      },
+      scales: {
+        x: { ticks: { color: '#8892a4', maxRotation: 0, maxTicksLimit: 8, font: { size: 10 } }, grid: { color: '#2e3347' } },
+        y: { position: 'left', ticks: { color: '#8892a4', font: { size: 10 } }, grid: { color: '#2e3347' } },
+        y1: { position: 'right', ticks: { color: '#8892a4', font: { size: 10 } }, grid: { drawOnChartArea: false } },
+      },
+    },
+  });
+
+  // ── Cohort Bar Chart ──
+  const latestRow = cot[cot.length - 1];
+  destroyChart('cohort-chart');
+  state.charts['cohort-chart'] = new Chart($('cohort-chart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: ['Primary\n(Fast Money)', 'Secondary\n(Slow Money)', 'Tertiary\n(Dealer/Hedger)'],
+      datasets: [{
+        label: 'Net Contracts',
+        data: [latestRow.primary_net, latestRow.secondary_net, latestRow.tertiary_net],
+        backgroundColor: [
+          latestRow.primary_net >= 0 ? 'rgba(34,197,94,0.65)' : 'rgba(239,68,68,0.65)',
+          latestRow.secondary_net >= 0 ? 'rgba(99,102,241,0.65)' : 'rgba(249,115,22,0.65)',
+          latestRow.tertiary_net >= 0 ? 'rgba(20,184,166,0.65)' : 'rgba(168,85,247,0.65)',
+        ],
+        borderWidth: 0,
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      indexAxis: 'y',
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ' ' + fmt(ctx.parsed.x) + ' contracts' } },
+      },
+      scales: {
+        x: { ticks: { color: '#8892a4', font: { size: 10 } }, grid: { color: '#2e3347' } },
+        y: { ticks: { color: '#e2e8f0', font: { size: 11 } }, grid: { display: false } },
+      },
+    },
+  });
+
+  // ── Historical Table ──
+  const histBody = $('hist-body');
+  histBody.innerHTML = '';
+  const recentCot = [...cot].reverse().slice(0, 52);
+  recentCot.forEach((row, i) => {
+    const prevRow = cot[cot.length - 1 - i - 4];
+    const d4w = prevRow ? (row.primary_net - prevRow.primary_net) : null;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${row.date ? row.date.slice(0,10) : '—'}</td>
+      <td>${fmt(row.primary_long)}</td>
+      <td>${fmt(row.primary_short)}</td>
+      <td class="${signClass(row.primary_net)}">${fmt(row.primary_net)}</td>
+      <td class="${signClass(d4w)}">${d4w != null ? (d4w >= 0 ? '+' : '') + fmt(d4w) : '—'}</td>
+      <td class="${signClass(row.secondary_net)}">${fmt(row.secondary_net)}</td>
+      <td>${fmt(row.open_interest)}</td>
+    `;
+    histBody.appendChild(tr);
+  });
+
+  // Highlight active watchlist row
+  document.querySelectorAll('#watchlist-body tr').forEach(tr => {
+    tr.classList.toggle('active', tr.dataset.key === key);
+  });
+}
+
+// ── Watchlist ────────────────────────────────────────────────────────────────
+function renderWatchlist() {
+  if (!state.watchlist) return;
+  const tbody = $('watchlist-body');
+  tbody.innerHTML = '';
+
+  state.watchlist.forEach(row => {
+    const tr = document.createElement('tr');
+    tr.dataset.key = row.market;
+    tr.innerHTML = `
+      <td class="rank-num">${row.rank}</td>
+      <td><strong>${row.title}</strong><br><small style="color:var(--text-muted)">${row.subtitle||''}</small></td>
+      <td><span class="regime-badge regime-${regimeCssKey(row.regime)}">${row.regime}</span></td>
+      <td>
+        ${fmt(row.score, 0)}
+        <span class="score-bar" style="width:${Math.min(row.score||0, 100)*0.6}px"></span>
+      </td>
+      <td class="${row.primary_percentile >= 80 ? 'pos' : row.primary_percentile <= 20 ? 'neg' : 'neu'}">${fmt(row.primary_percentile, 0)}th</td>
+      <td class="${signClass(row.primary_delta_4w)}">${row.primary_delta_4w != null ? (row.primary_delta_4w >= 0 ? '+' : '') + fmt(row.primary_delta_4w) : '—'}</td>
+      <td class="${signClass(row.price_change_4w_pct)}">${fmtPct(row.price_change_4w_pct)}</td>
+      <td class="takeaway-cell">${row.takeaway||''}</td>
+    `;
+    tr.addEventListener('click', () => selectMarket(row.market));
+    tbody.appendChild(tr);
+  });
+}
+
+// ── Stats Helpers ────────────────────────────────────────────────────────────
+function percentile(arr, val) {
+  if (!arr.length) return 50;
+  const below = arr.filter(v => v <= val).length;
+  return Math.round(100 * below / arr.length);
+}
+function zscore(arr, val) {
+  if (arr.length < 2) return 0;
+  const mu = arr.reduce((a,b) => a+b, 0) / arr.length;
+  const sigma = Math.sqrt(arr.reduce((a,b) => a + (b-mu)**2, 0) / arr.length);
+  if (sigma === 0) return 0;
+  return (val - mu) / sigma;
+}
+
+// ── Chart Helpers ────────────────────────────────────────────────────────────
+function destroyChart(id) {
+  if (state.charts[id]) { state.charts[id].destroy(); delete state.charts[id]; }
+}
+
+function chartOptions({ yLabel = '', zeroLine = false } = {}) {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: '#8892a4', font: { size: 11 } } },
+      tooltip: { mode: 'index', intersect: false },
+    },
+    scales: {
+      x: { ticks: { color: '#8892a4', maxRotation: 0, maxTicksLimit: 8, font: { size: 10 } }, grid: { color: '#2e3347' } },
+      y: {
+        ticks: { color: '#8892a4', font: { size: 10 } },
+        grid: { color: '#2e3347' },
+        ...(zeroLine ? {
+          afterBuildTicks: scale => {
+            if (!scale.ticks.find(t => t.value === 0)) scale.ticks.push({ value: 0 });
+          },
+        } : {}),
+      },
+    },
+  };
+}
+
+// ── Events ────────────────────────────────────────────────────────────────────
+$('market-select').addEventListener('change', e => selectMarket(e.target.value));
+$('lookback-select').addEventListener('change', () => {
+  if (state.currentKey) renderMarket(state.currentKey);
+});
+
+// ── Boot ──────────────────────────────────────────────────────────────────────
+loadAll();
+</script>
+</body>
+</html>
