@@ -256,7 +256,10 @@ def fetch_market(market: Dict[str, Any]) -> Dict[str, Any]:
     params = {
         "$limit": 5000,
         "$order": "report_date_as_yyyy_mm_dd ASC",
-        "$where": f"upper(market_and_exchange_names) like '%{market['query_name'].upper()}%'",
+        "$where": (
+            f"upper(market_and_exchange_names) like '%{market['query_name'].upper()}%'"
+            f" AND upper(market_and_exchange_names) not like '%COMBINED%'"
+        ),
     }
     rows = fetch_json(base_url, params=params)
 
