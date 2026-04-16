@@ -506,29 +506,45 @@ function cohortLabels(reportFamily) {
 }
 
 // ── Data Loading ────────────────────────────────────────────────────────────
+
+// Cache-buster token — updated after manifest loads so all subsequent
+// requests always fetch the freshest data from the CDN/browser cache.
+let _cbToken = '';
+
 async function fetchJson(path) {
-  const res = await fetch(path);
+  const url = _cbToken ? `${path}?t=${_cbToken}` : path;
+  const res = await fetch(url, { cache: 'no-cache' });
   if (!res.ok) throw new Error(`${res.status} ${res.statusText} — ${path}`);
   return res.json();
 }
 
 async function loadAll() {
+  // Load manifest without cache-busting first (we need generated_at from it)
+  let manifest;
   try {
-    state.manifest = await fetchJson('data/manifest.json');
+    const res = await fetch('data/manifest.json', { cache: 'no-cache' });
+    if (!res.ok) throw new Error(`${res.status}`);
+    manifest = await res.json();
   } catch (e) {
     showError('Could not load data/manifest.json. ' + e.message);
     return;
   }
+  state.manifest = manifest;
+
+  // Set cache-buster based on manifest generation timestamp
+  _cbToken = manifest.generated_at
+    ? manifest.generated_at.replace(/[^0-9]/g, '').slice(0, 14)
+    : Date.now();
 
   // Update header badge
-  if (state.manifest.generated_at) {
-    const d = new Date(state.manifest.generated_at);
+  if (manifest.generated_at) {
+    const d = new Date(manifest.generated_at);
     $('updated-badge').textContent = 'Updated ' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
   // Populate market selector
   const sel = $('market-select');
-  state.manifest.markets.forEach(m => {
+  manifest.markets.forEach(m => {
     const opt = document.createElement('option');
     opt.value = m.key;
     opt.textContent = m.title + ' · ' + m.subtitle;
@@ -700,38 +716,54 @@ function renderMarket(key) {
   });
 
   // ── Price vs Positioning ──
-  const pLabels = [];
-  const pClose = [];
-  const pNet = [];
+  // Align price data to COT dates (Tuesday) rather than Yahoo timestamps (Monday).
+  // For each COT date we find the Yahoo weekly bar whose start is within ±4 days,
+  // then label everything with the COT report date so both series share one x-axis.
+  // We also drop the current incomplete week (today < Friday release).
 
-  // Align by date
-  const cotByDate = {};
-  cot.forEach(r => { if (r.date) cotByDate[r.date.slice(0,10)] = r.primary_net; });
-  prices.forEach(p => {
-    const d = p.timestamp ? new Date(p.timestamp * 1000).toISOString().slice(0,10) : null;
-    if (d && cotByDate[d] != null) {
-      pLabels.push(d);
-      pClose.push(p.close);
-      pNet.push(cotByDate[d]);
+  const todayMs = Date.now();
+  const fridayThisWeekOffset = (() => {
+    const d = new Date(); const dow = d.getDay(); // 0=Sun … 6=Sat
+    return (5 - dow + 7) % 7;  // days until next Friday (0 if today is Friday)
+  })();
+  const releaseCutoffMs = todayMs - (fridayThisWeekOffset === 0 ? 0 : fridayThisWeekOffset) * 86400000;
+
+  // Build a sorted array of {ts, close} for price, excluding current incomplete week
+  const priceArr = prices
+    .filter(p => p.timestamp && p.close != null && p.timestamp * 1000 < releaseCutoffMs)
+    .map(p => ({ ts: p.timestamp * 1000, close: p.close }))
+    .sort((a, b) => a.ts - b.ts);
+
+  // For each COT row, find the closest price bar within ±4 days
+  const FOUR_DAYS_MS = 4 * 86400000;
+  const alignedLabels = [];
+  const alignedClose  = [];
+  const alignedNet    = [];
+
+  cot.forEach(r => {
+    if (!r.date) return;
+    const cotMs = new Date(r.date.slice(0,10)).getTime();
+    let best = null, bestDiff = Infinity;
+    priceArr.forEach(p => {
+      const diff = Math.abs(p.ts - cotMs);
+      if (diff < bestDiff && diff <= FOUR_DAYS_MS) { bestDiff = diff; best = p; }
+    });
+    if (best) {
+      alignedLabels.push(r.date.slice(0,10));   // COT Tuesday date as label
+      alignedClose.push(best.close);
+      alignedNet.push(r.primary_net);
     }
   });
-
-  // If no price alignment, just show prices on their own
-  const priceLabels = prices.slice(-lookback).map(p => {
-    if (!p.timestamp) return '';
-    return new Date(p.timestamp * 1000).toISOString().slice(0,10);
-  });
-  const closeData = prices.slice(-lookback).map(p => p.close);
 
   destroyChart('price-chart');
   state.charts['price-chart'] = new Chart($('price-chart').getContext('2d'), {
     data: {
-      labels: priceLabels,
+      labels: alignedLabels,
       datasets: [
         {
           type: 'line',
           label: market.metadata?.price_label || 'Price',
-          data: closeData,
+          data: alignedClose,
           borderColor: '#f8fafc',
           backgroundColor: 'transparent',
           tension: 0.3,
@@ -742,8 +774,8 @@ function renderMarket(key) {
         {
           type: 'bar',
           label: 'Primary Net',
-          data: netData.slice(-priceLabels.length),
-          backgroundColor: netData.slice(-priceLabels.length).map(v =>
+          data: alignedNet,
+          backgroundColor: alignedNet.map(v =>
             v >= 0 ? 'rgba(34,197,94,0.45)' : 'rgba(239,68,68,0.45)'
           ),
           borderWidth: 0,
