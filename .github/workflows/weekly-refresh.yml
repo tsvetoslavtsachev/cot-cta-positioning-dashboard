@@ -39,6 +39,12 @@ jobs:
       - name: Build derived metrics
         run: python scripts/derive_metrics.py
 
+      - name: Build CTA replication model
+        run: python scripts/cta_model.py
+
+      - name: Generate AI context file
+        run: python scripts/generate_ai_context.py
+
       - name: Commit refreshed data if changed
         id: commit
         run: |

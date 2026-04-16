@@ -1,0 +1,52 @@
+{
+  "market": "corn",
+  "title": "Corn",
+  "price_label": "Corn Futures",
+  "cot_date": "2026-04-07",
+  "model_date": "2026-04-07",
+  "current_price": 441.0,
+  "signals": {
+    "16w": {
+      "lookback_weeks": 16,
+      "cumulative_return_pct": -0.62,
+      "vol_annual_pct": 12.06,
+      "raw_signal": -0.0926,
+      "signal": -0.0926,
+      "trigger_price": 443.75,
+      "trigger_date": "2025-12-16",
+      "current_vs_trigger": -2.75,
+      "direction": "short",
+      "flip_note": "Signal flips when price rises above 444"
+    },
+    "32w": {
+      "lookback_weeks": 32,
+      "cumulative_return_pct": 10.8,
+      "vol_annual_pct": 12.06,
+      "raw_signal": 1.142,
+      "signal": 1.0,
+      "trigger_price": 398.0,
+      "trigger_date": "2025-08-26",
+      "current_vs_trigger": 43.0,
+      "direction": "long",
+      "flip_note": "Signal flips when price falls below 398"
+    },
+    "52w": {
+      "lookback_weeks": 52,
+      "cumulative_return_pct": -10.05,
+      "vol_annual_pct": 12.06,
+      "raw_signal": -0.833,
+      "signal": -0.833,
+      "trigger_price": 490.25,
+      "trigger_date": "2025-04-08",
+      "current_vs_trigger": -49.25,
+      "direction": "short",
+      "flip_note": "Signal flips when price rises above 490"
+    }
+  },
+  "ensemble_signal": 0.0248,
+  "ensemble_direction": "mixed / transitioning",
+  "estimated_position_bn": 0.05,
+  "aum_scalar_bn": 2.0,
+  "cftc_primary_net_contracts": 218632.0,
+  "methodology_note": "TSMOM ensemble of 16/32/52-week lookbacks, vol-normalized (12-week realized vol). Signal capped at ±1.0. AUM scalar is an estimate — proprietary prime brokerage data (GS, UBS) would give exact CTA-only figures. CFTC Leveraged Money is broader than CTA-only and includes hedge funds."
+}

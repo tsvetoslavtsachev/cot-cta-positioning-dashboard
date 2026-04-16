@@ -1,0 +1,52 @@
+{
+  "market": "bitcoin",
+  "title": "Bitcoin Futures",
+  "price_label": "BTC/USD",
+  "cot_date": "2026-04-07",
+  "model_date": "2026-04-07",
+  "current_price": 70753.41,
+  "signals": {
+    "16w": {
+      "lookback_weeks": 16,
+      "cumulative_return_pct": -20.16,
+      "vol_annual_pct": 41.88,
+      "raw_signal": -0.868,
+      "signal": -0.868,
+      "trigger_price": 88621.75,
+      "trigger_date": "2025-12-16",
+      "current_vs_trigger": -17868.34,
+      "direction": "short",
+      "flip_note": "Signal flips when price rises above 88622"
+    },
+    "32w": {
+      "lookback_weeks": 32,
+      "cumulative_return_pct": -34.63,
+      "vol_annual_pct": 41.88,
+      "raw_signal": -1.0542,
+      "signal": -1.0,
+      "trigger_price": 108236.71,
+      "trigger_date": "2025-08-26",
+      "current_vs_trigger": -37483.3,
+      "direction": "short",
+      "flip_note": "Signal flips when price rises above 108237"
+    },
+    "52w": {
+      "lookback_weeks": 52,
+      "cumulative_return_pct": -15.45,
+      "vol_annual_pct": 41.88,
+      "raw_signal": -0.369,
+      "signal": -0.369,
+      "trigger_price": 83684.98,
+      "trigger_date": "2025-04-08",
+      "current_vs_trigger": -12931.57,
+      "direction": "short",
+      "flip_note": "Signal flips when price rises above 83685"
+    }
+  },
+  "ensemble_signal": -0.7457,
+  "ensemble_direction": "net short",
+  "estimated_position_bn": -2.24,
+  "aum_scalar_bn": 3.0,
+  "cftc_primary_net_contracts": -8427.0,
+  "methodology_note": "TSMOM ensemble of 16/32/52-week lookbacks, vol-normalized (12-week realized vol). Signal capped at ±1.0. AUM scalar is an estimate — proprietary prime brokerage data (GS, UBS) would give exact CTA-only figures. CFTC Leveraged Money is broader than CTA-only and includes hedge funds."
+}

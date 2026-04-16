@@ -1,0 +1,52 @@
+{
+  "market": "wti",
+  "title": "WTI Crude",
+  "price_label": "WTI Futures",
+  "cot_date": "2026-04-07",
+  "model_date": "2026-04-07",
+  "current_price": 96.57,
+  "signals": {
+    "16w": {
+      "lookback_weeks": 16,
+      "cumulative_return_pct": 70.44,
+      "vol_annual_pct": 80.58,
+      "raw_signal": 1.5759,
+      "signal": 1.0,
+      "trigger_price": 56.66,
+      "trigger_date": "2025-12-16",
+      "current_vs_trigger": 39.91,
+      "direction": "long",
+      "flip_note": "Signal flips when price falls below 57"
+    },
+    "32w": {
+      "lookback_weeks": 32,
+      "cumulative_return_pct": 50.87,
+      "vol_annual_pct": 80.58,
+      "raw_signal": 0.8047,
+      "signal": 0.8047,
+      "trigger_price": 64.01,
+      "trigger_date": "2025-08-26",
+      "current_vs_trigger": 32.56,
+      "direction": "long",
+      "flip_note": "Signal flips when price falls below 64"
+    },
+    "52w": {
+      "lookback_weeks": 52,
+      "cumulative_return_pct": 57.02,
+      "vol_annual_pct": 80.58,
+      "raw_signal": 0.7077,
+      "signal": 0.7077,
+      "trigger_price": 61.5,
+      "trigger_date": "2025-04-08",
+      "current_vs_trigger": 35.07,
+      "direction": "long",
+      "flip_note": "Signal flips when price falls below 62"
+    }
+  },
+  "ensemble_signal": 0.8375,
+  "ensemble_direction": "net long",
+  "estimated_position_bn": 6.7,
+  "aum_scalar_bn": 8.0,
+  "cftc_primary_net_contracts": -28611.0,
+  "methodology_note": "TSMOM ensemble of 16/32/52-week lookbacks, vol-normalized (12-week realized vol). Signal capped at ±1.0. AUM scalar is an estimate — proprietary prime brokerage data (GS, UBS) would give exact CTA-only figures. CFTC Leveraged Money is broader than CTA-only and includes hedge funds."
+}

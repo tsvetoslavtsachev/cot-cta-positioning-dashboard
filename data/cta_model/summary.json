@@ -1,0 +1,578 @@
+{
+  "generated_at": "2026-04-16T10:17:28.091206Z",
+  "markets": [
+    {
+      "market": "sp500",
+      "title": "E-mini S&P 500",
+      "price_label": "S&P 500",
+      "cot_date": "2026-04-07",
+      "model_date": "2026-04-07",
+      "current_price": 6855.25,
+      "signals": {
+        "16w": {
+          "lookback_weeks": 16,
+          "cumulative_return_pct": 0.86,
+          "vol_annual_pct": 13.51,
+          "raw_signal": 0.1153,
+          "signal": 0.1153,
+          "trigger_price": 6796.54,
+          "trigger_date": "2025-12-16",
+          "current_vs_trigger": 58.71,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 6797"
+        },
+        "32w": {
+          "lookback_weeks": 32,
+          "cumulative_return_pct": 5.91,
+          "vol_annual_pct": 13.51,
+          "raw_signal": 0.5577,
+          "signal": 0.5577,
+          "trigger_price": 6472.75,
+          "trigger_date": "2025-08-26",
+          "current_vs_trigger": 382.5,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 6473"
+        },
+        "52w": {
+          "lookback_weeks": 52,
+          "cumulative_return_pct": 27.16,
+          "vol_annual_pct": 13.51,
+          "raw_signal": 2.0102,
+          "signal": 1.0,
+          "trigger_price": 5391.25,
+          "trigger_date": "2025-04-08",
+          "current_vs_trigger": 1464.0,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 5391"
+        }
+      },
+      "ensemble_signal": 0.5577,
+      "ensemble_direction": "net long",
+      "estimated_position_bn": 19.52,
+      "aum_scalar_bn": 35.0,
+      "cftc_primary_net_contracts": -244483.0,
+      "methodology_note": "TSMOM ensemble of 16/32/52-week lookbacks, vol-normalized (12-week realized vol). Signal capped at ±1.0. AUM scalar is an estimate — proprietary prime brokerage data (GS, UBS) would give exact CTA-only figures. CFTC Leveraged Money is broader than CTA-only and includes hedge funds."
+    },
+    {
+      "market": "nasdaq",
+      "title": "Nasdaq Mini",
+      "price_label": "Nasdaq 100",
+      "cot_date": "2026-04-07",
+      "model_date": "2026-04-07",
+      "current_price": 25281.25,
+      "signals": {
+        "16w": {
+          "lookback_weeks": 16,
+          "cumulative_return_pct": 0.59,
+          "vol_annual_pct": 16.21,
+          "raw_signal": 0.0657,
+          "signal": 0.0657,
+          "trigger_price": 25132.79,
+          "trigger_date": "2025-12-16",
+          "current_vs_trigger": 148.46,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 25133"
+        },
+        "32w": {
+          "lookback_weeks": 32,
+          "cumulative_return_pct": 7.76,
+          "vol_annual_pct": 16.21,
+          "raw_signal": 0.61,
+          "signal": 0.61,
+          "trigger_price": 23461.75,
+          "trigger_date": "2025-08-26",
+          "current_vs_trigger": 1819.5,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 23462"
+        },
+        "52w": {
+          "lookback_weeks": 52,
+          "cumulative_return_pct": 34.42,
+          "vol_annual_pct": 16.21,
+          "raw_signal": 2.1238,
+          "signal": 1.0,
+          "trigger_price": 18807.5,
+          "trigger_date": "2025-04-08",
+          "current_vs_trigger": 6473.75,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 18808"
+        }
+      },
+      "ensemble_signal": 0.5586,
+      "ensemble_direction": "net long",
+      "estimated_position_bn": 8.38,
+      "aum_scalar_bn": 15.0,
+      "cftc_primary_net_contracts": -45034.0,
+      "methodology_note": "TSMOM ensemble of 16/32/52-week lookbacks, vol-normalized (12-week realized vol). Signal capped at ±1.0. AUM scalar is an estimate — proprietary prime brokerage data (GS, UBS) would give exact CTA-only figures. CFTC Leveraged Money is broader than CTA-only and includes hedge funds."
+    },
+    {
+      "market": "us10y",
+      "title": "UST 10Y Note",
+      "price_label": "US 10Y Note",
+      "cot_date": "2026-04-07",
+      "model_date": "2026-04-07",
+      "current_price": 111.09,
+      "signals": {
+        "16w": {
+          "lookback_weeks": 16,
+          "cumulative_return_pct": -1.43,
+          "vol_annual_pct": 4.63,
+          "raw_signal": -0.556,
+          "signal": -0.556,
+          "trigger_price": 112.7,
+          "trigger_date": "2025-12-16",
+          "current_vs_trigger": -1.61,
+          "direction": "short",
+          "flip_note": "Signal flips when price rises above 113"
+        },
+        "32w": {
+          "lookback_weeks": 32,
+          "cumulative_return_pct": -1.21,
+          "vol_annual_pct": 4.63,
+          "raw_signal": -0.3328,
+          "signal": -0.3328,
+          "trigger_price": 112.45,
+          "trigger_date": "2025-08-26",
+          "current_vs_trigger": -1.36,
+          "direction": "short",
+          "flip_note": "Signal flips when price rises above 112"
+        },
+        "52w": {
+          "lookback_weeks": 52,
+          "cumulative_return_pct": 1.24,
+          "vol_annual_pct": 4.63,
+          "raw_signal": 0.2675,
+          "signal": 0.2675,
+          "trigger_price": 109.73,
+          "trigger_date": "2025-04-08",
+          "current_vs_trigger": 1.36,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 110"
+        }
+      },
+      "ensemble_signal": -0.2071,
+      "ensemble_direction": "mixed / transitioning",
+      "estimated_position_bn": -10.36,
+      "aum_scalar_bn": 50.0,
+      "cftc_primary_net_contracts": -1975685.0,
+      "methodology_note": "TSMOM ensemble of 16/32/52-week lookbacks, vol-normalized (12-week realized vol). Signal capped at ±1.0. AUM scalar is an estimate — proprietary prime brokerage data (GS, UBS) would give exact CTA-only figures. CFTC Leveraged Money is broader than CTA-only and includes hedge funds."
+    },
+    {
+      "market": "vix",
+      "title": "VIX Futures",
+      "price_label": "VIX",
+      "cot_date": "2026-04-07",
+      "model_date": "2026-04-07",
+      "current_price": 19.23,
+      "signals": {
+        "16w": {
+          "lookback_weeks": 16,
+          "cumulative_return_pct": 28.97,
+          "vol_annual_pct": 129.88,
+          "raw_signal": 0.4022,
+          "signal": 0.4022,
+          "trigger_price": 14.91,
+          "trigger_date": "2025-12-16",
+          "current_vs_trigger": 4.32,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 15"
+        },
+        "32w": {
+          "lookback_weeks": 32,
+          "cumulative_return_pct": 25.2,
+          "vol_annual_pct": 129.88,
+          "raw_signal": 0.2473,
+          "signal": 0.2473,
+          "trigger_price": 15.36,
+          "trigger_date": "2025-08-26",
+          "current_vs_trigger": 3.87,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 15"
+        },
+        "52w": {
+          "lookback_weeks": 52,
+          "cumulative_return_pct": -48.8,
+          "vol_annual_pct": 129.88,
+          "raw_signal": -0.3757,
+          "signal": -0.3757,
+          "trigger_price": 37.56,
+          "trigger_date": "2025-04-08",
+          "current_vs_trigger": -18.33,
+          "direction": "short",
+          "flip_note": "Signal flips when price rises above 38"
+        }
+      },
+      "ensemble_signal": 0.0913,
+      "ensemble_direction": "mixed / transitioning",
+      "estimated_position_bn": 0.14,
+      "aum_scalar_bn": 1.5,
+      "cftc_primary_net_contracts": -44959.0,
+      "methodology_note": "TSMOM ensemble of 16/32/52-week lookbacks, vol-normalized (12-week realized vol). Signal capped at ±1.0. AUM scalar is an estimate — proprietary prime brokerage data (GS, UBS) would give exact CTA-only figures. CFTC Leveraged Money is broader than CTA-only and includes hedge funds."
+    },
+    {
+      "market": "eurfx",
+      "title": "Euro FX",
+      "price_label": "EUR/USD",
+      "cot_date": "2026-04-07",
+      "model_date": "2026-04-07",
+      "current_price": 1.17,
+      "signals": {
+        "16w": {
+          "lookback_weeks": 16,
+          "cumulative_return_pct": 0.13,
+          "vol_annual_pct": 7.64,
+          "raw_signal": 0.0304,
+          "signal": 0.0304,
+          "trigger_price": 1.17,
+          "trigger_date": "2025-12-16",
+          "current_vs_trigger": 0.0,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 1"
+        },
+        "32w": {
+          "lookback_weeks": 32,
+          "cumulative_return_pct": 0.36,
+          "vol_annual_pct": 7.64,
+          "raw_signal": 0.0607,
+          "signal": 0.0607,
+          "trigger_price": 1.17,
+          "trigger_date": "2025-08-26",
+          "current_vs_trigger": 0.0,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 1"
+        },
+        "52w": {
+          "lookback_weeks": 52,
+          "cumulative_return_pct": 3.24,
+          "vol_annual_pct": 7.64,
+          "raw_signal": 0.4238,
+          "signal": 0.4238,
+          "trigger_price": 1.14,
+          "trigger_date": "2025-04-08",
+          "current_vs_trigger": 0.04,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 1"
+        }
+      },
+      "ensemble_signal": 0.1716,
+      "ensemble_direction": "mixed / transitioning",
+      "estimated_position_bn": 0.86,
+      "aum_scalar_bn": 5.0,
+      "cftc_primary_net_contracts": 882.0,
+      "methodology_note": "TSMOM ensemble of 16/32/52-week lookbacks, vol-normalized (12-week realized vol). Signal capped at ±1.0. AUM scalar is an estimate — proprietary prime brokerage data (GS, UBS) would give exact CTA-only figures. CFTC Leveraged Money is broader than CTA-only and includes hedge funds."
+    },
+    {
+      "market": "gbpfx",
+      "title": "British Pound",
+      "price_label": "GBP/USD",
+      "cot_date": "2026-04-07",
+      "model_date": "2026-04-07",
+      "current_price": 1.35,
+      "signals": {
+        "16w": {
+          "lookback_weeks": 16,
+          "cumulative_return_pct": 1.2,
+          "vol_annual_pct": 7.01,
+          "raw_signal": 0.3095,
+          "signal": 0.3095,
+          "trigger_price": 1.33,
+          "trigger_date": "2025-12-16",
+          "current_vs_trigger": 0.02,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 1"
+        },
+        "32w": {
+          "lookback_weeks": 32,
+          "cumulative_return_pct": 1.29,
+          "vol_annual_pct": 7.01,
+          "raw_signal": 0.2341,
+          "signal": 0.2341,
+          "trigger_price": 1.33,
+          "trigger_date": "2025-08-26",
+          "current_vs_trigger": 0.02,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 1"
+        },
+        "52w": {
+          "lookback_weeks": 52,
+          "cumulative_return_pct": 2.85,
+          "vol_annual_pct": 7.01,
+          "raw_signal": 0.4068,
+          "signal": 0.4068,
+          "trigger_price": 1.31,
+          "trigger_date": "2025-04-08",
+          "current_vs_trigger": 0.04,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 1"
+        }
+      },
+      "ensemble_signal": 0.3168,
+      "ensemble_direction": "mixed / transitioning",
+      "estimated_position_bn": 0.95,
+      "aum_scalar_bn": 3.0,
+      "cftc_primary_net_contracts": 26533.0,
+      "methodology_note": "TSMOM ensemble of 16/32/52-week lookbacks, vol-normalized (12-week realized vol). Signal capped at ±1.0. AUM scalar is an estimate — proprietary prime brokerage data (GS, UBS) would give exact CTA-only figures. CFTC Leveraged Money is broader than CTA-only and includes hedge funds."
+    },
+    {
+      "market": "dxy",
+      "title": "USD Index",
+      "price_label": "DXY",
+      "cot_date": "2026-04-07",
+      "model_date": "2026-04-07",
+      "current_price": 98.65,
+      "signals": {
+        "16w": {
+          "lookback_weeks": 16,
+          "cumulative_return_pct": 0.05,
+          "vol_annual_pct": 7.25,
+          "raw_signal": 0.0126,
+          "signal": 0.0126,
+          "trigger_price": 98.6,
+          "trigger_date": "2025-12-16",
+          "current_vs_trigger": 0.05,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 99"
+        },
+        "32w": {
+          "lookback_weeks": 32,
+          "cumulative_return_pct": 0.9,
+          "vol_annual_pct": 7.25,
+          "raw_signal": 0.1582,
+          "signal": 0.1582,
+          "trigger_price": 97.77,
+          "trigger_date": "2025-08-26",
+          "current_vs_trigger": 0.88,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 98"
+        },
+        "52w": {
+          "lookback_weeks": 52,
+          "cumulative_return_pct": -1.13,
+          "vol_annual_pct": 7.25,
+          "raw_signal": -0.1561,
+          "signal": -0.1561,
+          "trigger_price": 99.78,
+          "trigger_date": "2025-04-08",
+          "current_vs_trigger": -1.13,
+          "direction": "short",
+          "flip_note": "Signal flips when price rises above 100"
+        }
+      },
+      "ensemble_signal": 0.0049,
+      "ensemble_direction": "mixed / transitioning",
+      "estimated_position_bn": 0.02,
+      "aum_scalar_bn": 4.0,
+      "cftc_primary_net_contracts": -8641.0,
+      "methodology_note": "TSMOM ensemble of 16/32/52-week lookbacks, vol-normalized (12-week realized vol). Signal capped at ±1.0. AUM scalar is an estimate — proprietary prime brokerage data (GS, UBS) would give exact CTA-only figures. CFTC Leveraged Money is broader than CTA-only and includes hedge funds."
+    },
+    {
+      "market": "bitcoin",
+      "title": "Bitcoin Futures",
+      "price_label": "BTC/USD",
+      "cot_date": "2026-04-07",
+      "model_date": "2026-04-07",
+      "current_price": 70753.41,
+      "signals": {
+        "16w": {
+          "lookback_weeks": 16,
+          "cumulative_return_pct": -20.16,
+          "vol_annual_pct": 41.88,
+          "raw_signal": -0.868,
+          "signal": -0.868,
+          "trigger_price": 88621.75,
+          "trigger_date": "2025-12-16",
+          "current_vs_trigger": -17868.34,
+          "direction": "short",
+          "flip_note": "Signal flips when price rises above 88622"
+        },
+        "32w": {
+          "lookback_weeks": 32,
+          "cumulative_return_pct": -34.63,
+          "vol_annual_pct": 41.88,
+          "raw_signal": -1.0542,
+          "signal": -1.0,
+          "trigger_price": 108236.71,
+          "trigger_date": "2025-08-26",
+          "current_vs_trigger": -37483.3,
+          "direction": "short",
+          "flip_note": "Signal flips when price rises above 108237"
+        },
+        "52w": {
+          "lookback_weeks": 52,
+          "cumulative_return_pct": -15.45,
+          "vol_annual_pct": 41.88,
+          "raw_signal": -0.369,
+          "signal": -0.369,
+          "trigger_price": 83684.98,
+          "trigger_date": "2025-04-08",
+          "current_vs_trigger": -12931.57,
+          "direction": "short",
+          "flip_note": "Signal flips when price rises above 83685"
+        }
+      },
+      "ensemble_signal": -0.7457,
+      "ensemble_direction": "net short",
+      "estimated_position_bn": -2.24,
+      "aum_scalar_bn": 3.0,
+      "cftc_primary_net_contracts": -8427.0,
+      "methodology_note": "TSMOM ensemble of 16/32/52-week lookbacks, vol-normalized (12-week realized vol). Signal capped at ±1.0. AUM scalar is an estimate — proprietary prime brokerage data (GS, UBS) would give exact CTA-only figures. CFTC Leveraged Money is broader than CTA-only and includes hedge funds."
+    },
+    {
+      "market": "gold",
+      "title": "Gold",
+      "price_label": "Gold Futures",
+      "cot_date": "2026-04-07",
+      "model_date": "2026-04-07",
+      "current_price": 4761.9,
+      "signals": {
+        "16w": {
+          "lookback_weeks": 16,
+          "cumulative_return_pct": 9.18,
+          "vol_annual_pct": 33.22,
+          "raw_signal": 0.4983,
+          "signal": 0.4983,
+          "trigger_price": 4361.4,
+          "trigger_date": "2025-12-16",
+          "current_vs_trigger": 400.5,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 4361"
+        },
+        "32w": {
+          "lookback_weeks": 32,
+          "cumulative_return_pct": 37.08,
+          "vol_annual_pct": 33.22,
+          "raw_signal": 1.4231,
+          "signal": 1.0,
+          "trigger_price": 3473.7,
+          "trigger_date": "2025-08-26",
+          "current_vs_trigger": 1288.2,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 3474"
+        },
+        "52w": {
+          "lookback_weeks": 52,
+          "cumulative_return_pct": 47.78,
+          "vol_annual_pct": 33.22,
+          "raw_signal": 1.4384,
+          "signal": 1.0,
+          "trigger_price": 3222.2,
+          "trigger_date": "2025-04-08",
+          "current_vs_trigger": 1539.7,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 3222"
+        }
+      },
+      "ensemble_signal": 0.8328,
+      "ensemble_direction": "net long",
+      "estimated_position_bn": 9.99,
+      "aum_scalar_bn": 12.0,
+      "cftc_primary_net_contracts": 92113.0,
+      "methodology_note": "TSMOM ensemble of 16/32/52-week lookbacks, vol-normalized (12-week realized vol). Signal capped at ±1.0. AUM scalar is an estimate — proprietary prime brokerage data (GS, UBS) would give exact CTA-only figures. CFTC Leveraged Money is broader than CTA-only and includes hedge funds."
+    },
+    {
+      "market": "wti",
+      "title": "WTI Crude",
+      "price_label": "WTI Futures",
+      "cot_date": "2026-04-07",
+      "model_date": "2026-04-07",
+      "current_price": 96.57,
+      "signals": {
+        "16w": {
+          "lookback_weeks": 16,
+          "cumulative_return_pct": 70.44,
+          "vol_annual_pct": 80.58,
+          "raw_signal": 1.5759,
+          "signal": 1.0,
+          "trigger_price": 56.66,
+          "trigger_date": "2025-12-16",
+          "current_vs_trigger": 39.91,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 57"
+        },
+        "32w": {
+          "lookback_weeks": 32,
+          "cumulative_return_pct": 50.87,
+          "vol_annual_pct": 80.58,
+          "raw_signal": 0.8047,
+          "signal": 0.8047,
+          "trigger_price": 64.01,
+          "trigger_date": "2025-08-26",
+          "current_vs_trigger": 32.56,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 64"
+        },
+        "52w": {
+          "lookback_weeks": 52,
+          "cumulative_return_pct": 57.02,
+          "vol_annual_pct": 80.58,
+          "raw_signal": 0.7077,
+          "signal": 0.7077,
+          "trigger_price": 61.5,
+          "trigger_date": "2025-04-08",
+          "current_vs_trigger": 35.07,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 62"
+        }
+      },
+      "ensemble_signal": 0.8375,
+      "ensemble_direction": "net long",
+      "estimated_position_bn": 6.7,
+      "aum_scalar_bn": 8.0,
+      "cftc_primary_net_contracts": -28611.0,
+      "methodology_note": "TSMOM ensemble of 16/32/52-week lookbacks, vol-normalized (12-week realized vol). Signal capped at ±1.0. AUM scalar is an estimate — proprietary prime brokerage data (GS, UBS) would give exact CTA-only figures. CFTC Leveraged Money is broader than CTA-only and includes hedge funds."
+    },
+    {
+      "market": "corn",
+      "title": "Corn",
+      "price_label": "Corn Futures",
+      "cot_date": "2026-04-07",
+      "model_date": "2026-04-07",
+      "current_price": 441.0,
+      "signals": {
+        "16w": {
+          "lookback_weeks": 16,
+          "cumulative_return_pct": -0.62,
+          "vol_annual_pct": 12.06,
+          "raw_signal": -0.0926,
+          "signal": -0.0926,
+          "trigger_price": 443.75,
+          "trigger_date": "2025-12-16",
+          "current_vs_trigger": -2.75,
+          "direction": "short",
+          "flip_note": "Signal flips when price rises above 444"
+        },
+        "32w": {
+          "lookback_weeks": 32,
+          "cumulative_return_pct": 10.8,
+          "vol_annual_pct": 12.06,
+          "raw_signal": 1.142,
+          "signal": 1.0,
+          "trigger_price": 398.0,
+          "trigger_date": "2025-08-26",
+          "current_vs_trigger": 43.0,
+          "direction": "long",
+          "flip_note": "Signal flips when price falls below 398"
+        },
+        "52w": {
+          "lookback_weeks": 52,
+          "cumulative_return_pct": -10.05,
+          "vol_annual_pct": 12.06,
+          "raw_signal": -0.833,
+          "signal": -0.833,
+          "trigger_price": 490.25,
+          "trigger_date": "2025-04-08",
+          "current_vs_trigger": -49.25,
+          "direction": "short",
+          "flip_note": "Signal flips when price rises above 490"
+        }
+      },
+      "ensemble_signal": 0.0248,
+      "ensemble_direction": "mixed / transitioning",
+      "estimated_position_bn": 0.05,
+      "aum_scalar_bn": 2.0,
+      "cftc_primary_net_contracts": 218632.0,
+      "methodology_note": "TSMOM ensemble of 16/32/52-week lookbacks, vol-normalized (12-week realized vol). Signal capped at ±1.0. AUM scalar is an estimate — proprietary prime brokerage data (GS, UBS) would give exact CTA-only figures. CFTC Leveraged Money is broader than CTA-only and includes hedge funds."
+    }
+  ],
+  "failures": []
+}
