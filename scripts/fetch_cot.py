@@ -251,27 +251,45 @@ def deduplicate_by_date(raw_rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Keep exactly one raw API row per report date.
 
     The CFTC LIKE query can return multiple contract variants for the same date
-    (e.g. standard + E-Micro + different exchange listings).  Mixing them
-    produces spurious spikes and null fields in the output.
+    (standard + micro + combined + cross-rates etc.).  Mixing them produces
+    spurious spikes and null fields in the output.
 
     Strategy:
-    1. Drop rows whose name contains 'MICRO' or 'MINI-SIZED' (sub-standard
-       contracts that often lack full cohort reporting).
-    2. Among remaining rows for the same date, keep the one with the highest
+    1. Separate COMBINED/CONSOLIDATED rows from individual contract rows.
+    2. For dates where individual data exists, prefer it (avoids double-counting).
+       For dates where only COMBINED data exists (CFTC phased out individual
+       reporting for some markets after ~2022), use COMBINED as fallback.
+    3. Drop MICRO / MINI-SIZED sub-standard contracts.
+    4. Among remaining rows for the same date, keep the one with the highest
        open_interest_all — that is the primary, most liquid contract.
     """
     from collections import defaultdict
 
-    # Step 1 — exclude sub-standard contract variants
+    def is_combined(row: Dict[str, Any]) -> bool:
+        return "COMBINED" in str(row.get("market_and_exchange_names", "")).upper()
+
+    individual = [r for r in raw_rows if not is_combined(r)]
+    combined   = [r for r in raw_rows if is_combined(r)]
+
+    # Dates covered by individual-exchange data
+    individual_dates = {str(r.get("report_date_as_yyyy_mm_dd") or "")[:10] for r in individual}
+
+    # Merge: individual rows + COMBINED rows only for dates with no individual data
+    merged = individual + [
+        r for r in combined
+        if str(r.get("report_date_as_yyyy_mm_dd") or "")[:10] not in individual_dates
+    ]
+
+    # Drop sub-standard contract variants
     EXCLUDE = ("MICRO", "MINI-SIZED")
     filtered = [
-        r for r in raw_rows
+        r for r in merged
         if not any(kw in str(r.get("market_and_exchange_names", "")).upper() for kw in EXCLUDE)
     ]
     if not filtered:
-        filtered = raw_rows  # fallback: nothing left after filtering
+        filtered = merged  # fallback: nothing survived filtering
 
-    # Step 2 — group by date (normalise to YYYY-MM-DD, Socrata may return full timestamps)
+    # Group by date (normalise to YYYY-MM-DD), keep highest open interest
     by_date: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     for row in filtered:
         date_key = str(row.get("report_date_as_yyyy_mm_dd") or "")[:10]
@@ -307,13 +325,7 @@ def fetch_market(market: Dict[str, Any]) -> Dict[str, Any]:
     unique_names = sorted({r.get("market_and_exchange_names", "") for r in rows})
     print(f"  [{market['key']}] {len(rows)} raw rows, unique names: {unique_names}")
 
-    # Step 2 — drop COMBINED/CONSOLIDATED entries (they double-count positions)
-    rows = [
-        r for r in rows
-        if "COMBINED" not in str(r.get("market_and_exchange_names", "")).upper()
-    ]
-
-    # Step 3 — apply optional name filters (pin to specific exchange / exclude cross-rates)
+    # Step 2 — apply optional name filters (pin to specific exchange / exclude cross-rates)
     must_contain = market.get("name_must_contain")
     if must_contain:
         pinned = [
