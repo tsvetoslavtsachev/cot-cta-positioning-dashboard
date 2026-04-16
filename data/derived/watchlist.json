@@ -11,7 +11,7 @@
     "primary_net": 218632.0,
     "primary_delta_4w": 25361.0,
     "secondary_net": -487004.0,
-    "price_change_4w_pct": -2.27,
+    "price_change_4w_pct": -2.33,
     "takeaway": "Fast money and slower cohorts are pulling in different directions.",
     "rank": 1
   },
@@ -59,7 +59,7 @@
     "primary_net": 48829.0,
     "primary_delta_4w": 147704.0,
     "secondary_net": 634289.0,
-    "price_change_4w_pct": 10.27,
+    "price_change_4w_pct": 10.28,
     "takeaway": "Positioning remains stretched on the long side (99th percentile).",
     "rank": 4
   },
@@ -75,7 +75,7 @@
     "primary_net": -8427.0,
     "primary_delta_4w": 1252.0,
     "secondary_net": 4573.0,
-    "price_change_4w_pct": 13.67,
+    "price_change_4w_pct": 13.66,
     "takeaway": "Fast money and slower cohorts are pulling in different directions.",
     "rank": 5
   },
@@ -123,7 +123,7 @@
     "primary_net": 4332.0,
     "primary_delta_4w": 9997.0,
     "secondary_net": -43274.0,
-    "price_change_4w_pct": 1.87,
+    "price_change_4w_pct": 1.88,
     "takeaway": "Fast money and slower cohorts are pulling in different directions.",
     "rank": 8
   },
@@ -139,7 +139,7 @@
     "primary_net": 882.0,
     "primary_delta_4w": -4349.0,
     "secondary_net": 258050.0,
-    "price_change_4w_pct": 2.29,
+    "price_change_4w_pct": 2.3,
     "takeaway": "Positioning is easing without a clear high-conviction signal.",
     "rank": 9
   },
@@ -155,7 +155,7 @@
     "primary_net": -28611.0,
     "primary_delta_4w": -7640.0,
     "secondary_net": 159249.0,
-    "price_change_4w_pct": -7.86,
+    "price_change_4w_pct": -7.85,
     "takeaway": "Fast money and slower cohorts are pulling in different directions.",
     "rank": 10
   },
@@ -171,7 +171,7 @@
     "primary_net": 4438.0,
     "primary_delta_4w": -1840.0,
     "secondary_net": 22196.0,
-    "price_change_4w_pct": -2.19,
+    "price_change_4w_pct": -2.18,
     "takeaway": "Positioning is easing without a clear high-conviction signal.",
     "rank": 11
   }
