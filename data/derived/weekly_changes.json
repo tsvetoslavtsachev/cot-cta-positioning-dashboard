@@ -2,35 +2,37 @@
   {
     "market": "sp500",
     "title": "E-mini S&P 500",
-    "date": "2022-02-01T00:00:00.000",
+    "date": "2026-04-07T00:00:00.000",
     "changes": [
       "Primary cohort added to longs over the last 4 weeks.",
-      "Primary positioning sits near the 99th percentile of the selected history.",
-      "Price rose 10.25% over the same 4-week window.",
-      "Current regime: Crowded Long."
+      "Primary positioning sits near the 92th percentile of the selected history.",
+      "Primary and secondary cohorts remain in divergence.",
+      "Price rose 10.31% over the same 4-week window.",
+      "Current regime: Divergence."
     ]
   },
   {
     "market": "nasdaq",
     "title": "Nasdaq Mini",
-    "date": "2022-02-01T00:00:00.000",
+    "date": "2026-04-07T00:00:00.000",
     "changes": [
-      "Primary cohort added to longs over the last 4 weeks.",
-      "Primary positioning sits near the 79th percentile of the selected history.",
+      "Primary cohort added to shorts over the last 4 weeks.",
+      "Primary positioning sits near the 25th percentile of the selected history.",
       "Primary and secondary cohorts remain in divergence.",
-      "Price rose 13.27% over the same 4-week window.",
+      "Price rose 13.39% over the same 4-week window.",
       "Current regime: Divergence."
     ]
   },
   {
     "market": "us10y",
     "title": "UST 10Y Note",
-    "date": "2022-02-01T00:00:00.000",
+    "date": "2026-04-07T00:00:00.000",
     "changes": [
-      "Primary cohort added to longs over the last 4 weeks.",
-      "Primary positioning sits near the 87th percentile of the selected history.",
-      "Price rose 1.19% over the same 4-week window.",
-      "Current regime: Crowded Long."
+      "Primary cohort added to shorts over the last 4 weeks.",
+      "Primary positioning sits near the 27th percentile of the selected history.",
+      "Primary and secondary cohorts remain in divergence.",
+      "Price rose 1.18% over the same 4-week window.",
+      "Current regime: Divergence."
     ]
   },
   {
@@ -52,31 +54,32 @@
     "changes": [
       "Primary cohort added to shorts over the last 4 weeks.",
       "Primary positioning sits near the 33th percentile of the selected history.",
-      "Price rose 2.28% over the same 4-week window.",
+      "Price rose 2.27% over the same 4-week window.",
       "Current regime: Neutral / Transition."
     ]
   },
   {
     "market": "gbpfx",
     "title": "British Pound",
-    "date": "2022-02-01T00:00:00.000",
+    "date": "2026-04-07T00:00:00.000",
     "changes": [
       "Primary cohort added to longs over the last 4 weeks.",
-      "Primary positioning sits near the 50th percentile of the selected history.",
+      "Primary positioning sits near the 31th percentile of the selected history.",
       "Primary and secondary cohorts remain in divergence.",
-      "Price rose 1.85% over the same 4-week window.",
+      "Price rose 1.83% over the same 4-week window.",
       "Current regime: Divergence."
     ]
   },
   {
     "market": "dxy",
     "title": "USD Index",
-    "date": "2022-02-01T00:00:00.000",
+    "date": "2026-04-07T00:00:00.000",
     "changes": [
-      "Primary cohort added to shorts over the last 4 weeks.",
-      "Primary positioning sits near the 63th percentile of the selected history.",
-      "Price fell 2.18% over the same 4-week window.",
-      "Current regime: Neutral / Transition."
+      "Primary cohort added to longs over the last 4 weeks.",
+      "Primary positioning sits near the 28th percentile of the selected history.",
+      "Primary and secondary cohorts remain in divergence.",
+      "Price fell 2.15% over the same 4-week window.",
+      "Current regime: Divergence."
     ]
   },
   {
@@ -87,7 +90,7 @@
       "Primary cohort added to longs over the last 4 weeks.",
       "Primary positioning sits near the 76th percentile of the selected history.",
       "Primary and secondary cohorts remain in divergence.",
-      "Price rose 13.68% over the same 4-week window.",
+      "Price rose 13.77% over the same 4-week window.",
       "Current regime: Divergence."
     ]
   },
@@ -99,7 +102,7 @@
       "Primary cohort added to shorts over the last 4 weeks.",
       "Primary positioning sits near the 13th percentile of the selected history.",
       "Primary and secondary cohorts remain in divergence.",
-      "Price rose 8.16% over the same 4-week window.",
+      "Price rose 8.03% over the same 4-week window.",
       "Current regime: Divergence."
     ]
   },
@@ -111,7 +114,7 @@
       "Primary cohort added to shorts over the last 4 weeks.",
       "Primary positioning sits near the 62th percentile of the selected history.",
       "Primary and secondary cohorts remain in divergence.",
-      "Price fell 8.04% over the same 4-week window.",
+      "Price fell 8.05% over the same 4-week window.",
       "Current regime: Divergence."
     ]
   },
@@ -123,7 +126,7 @@
       "Primary cohort added to longs over the last 4 weeks.",
       "Primary positioning sits near the 92th percentile of the selected history.",
       "Primary and secondary cohorts remain in divergence.",
-      "Price fell 2.38% over the same 4-week window.",
+      "Price fell 2.44% over the same 4-week window.",
       "Current regime: Divergence."
     ]
   }
