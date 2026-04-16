@@ -276,6 +276,78 @@
       .kpi-strip { grid-template-columns: 1fr 1fr; }
       .main { padding: 0.75rem; }
     }
+
+    /* ── Tab Navigation ── */
+    .tab-nav {
+      display: flex;
+      gap: 0;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 0.5rem 1.1rem 0.6rem;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: #818cf8; border-bottom-color: #818cf8; }
+
+    /* ── Positioning Intelligence Tables ── */
+    .intel-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .intel-table th {
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 0.5rem 0.75rem;
+      text-align: right;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .intel-table th:first-child { text-align: left; }
+    .intel-table td {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--text);
+      padding: 0.45rem 0.75rem;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .intel-table td:first-child { text-align: left; }
+    .intel-table tr:last-child td { border-bottom: none; }
+    .intel-table tr:hover td { background: rgba(99,102,241,0.04); }
+    .gap-pos { color: #22c55e; font-weight: 600; }   /* model more bullish */
+    .gap-neg { color: #f87171; font-weight: 600; }   /* model more bearish */
+    .card-subtitle {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      margin: -0.25rem 0 0.75rem;
+      line-height: 1.5;
+    }
+    /* Trigger level bar */
+    .trigger-wrap { padding: 0.25rem 0; }
+    .trigger-row { align-items: center; display: flex; gap: 0.75rem; margin-bottom: 0.6rem; }
+    .trigger-label { color: var(--text-muted); font-size: 0.75rem; min-width: 3rem; text-align: right; }
+    .trigger-bar-outer { background: var(--surface2); border-radius: 3px; flex: 1; height: 6px; overflow: hidden; position: relative; }
+    .trigger-bar-fill { border-radius: 3px; height: 100%; transition: width 0.4s; }
+    .trigger-bar-fill.long  { background: #22c55e; }
+    .trigger-bar-fill.short { background: #ef4444; }
+    .trigger-info { color: var(--text); font-size: 0.8rem; min-width: 11rem; }
+    .trigger-dir { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; margin-left: 0.3rem; }
+    .trigger-dir.long  { color: #22c55e; }
+    .trigger-dir.short { color: #ef4444; }
+    .cannot-see-list { list-style: none; padding: 0; margin: 0; }
+    .cannot-see-list li { border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-muted); font-size: 0.82rem; padding: 0.4rem 0; }
+    .cannot-see-list li:last-child { border-bottom: none; }
+    .cannot-see-list li::before { content: '✕  '; color: #f87171; font-size: 0.7rem; }
   </style>
 </head>
 <body>
@@ -313,6 +385,15 @@
     </p>
   </div>
   <div id="dashboard" style="display:none;">
+
+    <!-- Tab Navigation -->
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="cot">COT Analysis</button>
+      <button class="tab-btn" data-tab="intelligence">Positioning Intelligence</button>
+    </div>
+
+    <!-- Tab: COT Analysis -->
+    <div id="tab-cot" class="tab-panel">
 
     <!-- KPI Strip -->
     <div class="kpi-strip" id="kpi-strip">
@@ -424,6 +505,77 @@
       </div>
     </div>
 
+    </div><!-- /#tab-cot -->
+
+    <!-- Tab: Positioning Intelligence -->
+    <div id="tab-intelligence" class="tab-panel" style="display:none;">
+
+      <!-- Dollar Notional Table -->
+      <div class="card" style="margin-bottom:0.75rem;">
+        <div class="card-title">Dollar-Value Positioning — All Markets</div>
+        <p class="card-subtitle">
+          CFTC = Leveraged/Managed Money net contracts × contract multiplier × COT-date price.<br>
+          CTA Model = TSMOM ensemble signal × estimated CTA AUM per market (16/32/52w lookback).<br>
+          Gap = Model minus CFTC. <span class="gap-pos">Green</span> = model more bullish than CFTC (short-covering pressure). <span class="gap-neg">Red</span> = model more bearish (new shorts building).
+        </p>
+        <div style="overflow-x:auto;">
+          <table class="intel-table" id="intel-notional-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Market</th>
+                <th>CFTC Net ($B)</th>
+                <th>CTA Model ($B)</th>
+                <th>Gap ($B)</th>
+                <th>CTA Direction</th>
+                <th>Percentile</th>
+                <th>Regime</th>
+              </tr>
+            </thead>
+            <tbody id="intel-notional-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CTA Trigger Map (equity markets) -->
+      <div class="section-grid-2" style="margin-bottom:0.75rem;">
+        <div class="card" id="intel-trigger-sp500">
+          <div class="card-title">S&amp;P 500 — CTA Trigger Map</div>
+          <p class="card-subtitle" id="intel-sp500-price">Loading…</p>
+          <div class="trigger-wrap" id="intel-sp500-triggers"></div>
+        </div>
+        <div class="card" id="intel-trigger-nasdaq">
+          <div class="card-title">Nasdaq 100 — CTA Trigger Map</div>
+          <p class="card-subtitle" id="intel-nasdaq-price">Loading…</p>
+          <div class="trigger-wrap" id="intel-nasdaq-triggers"></div>
+        </div>
+      </div>
+
+      <div class="section-grid-2" style="margin-bottom:0.75rem;">
+        <div class="card" id="intel-trigger-us10y">
+          <div class="card-title">UST 10Y Note — CTA Trigger Map</div>
+          <p class="card-subtitle" id="intel-us10y-price">Loading…</p>
+          <div class="trigger-wrap" id="intel-us10y-triggers"></div>
+        </div>
+        <div class="card" id="intel-trigger-gold">
+          <div class="card-title">Gold — CTA Trigger Map</div>
+          <p class="card-subtitle" id="intel-gold-price">Loading…</p>
+          <div class="trigger-wrap" id="intel-gold-triggers"></div>
+        </div>
+      </div>
+
+      <!-- Methodology / Limitations -->
+      <div class="card">
+        <div class="card-title">What This Dashboard Cannot See</div>
+        <p class="card-subtitle">
+          CFTC COT captures futures-only positioning with ~3-day lag.
+          GS and UBS Prime Brokerage data (proprietary, client-only) shows a broader picture.
+        </p>
+        <ul class="cannot-see-list" id="intel-cannot-see"></ul>
+      </div>
+
+    </div><!-- /#tab-intelligence -->
+
   </div><!-- /#dashboard -->
 </main>
 
@@ -441,6 +593,7 @@ const state = {
   watchlist: null,
   changes: null,
   narratives: null,
+  aiContext: null,    // data/ai_context.json
   markets: {},        // key → parsed market JSON
   currentKey: null,
   lookback: 156,
@@ -555,6 +708,7 @@ async function loadAll() {
   try { state.watchlist = await fetchJson('data/derived/watchlist.json'); } catch (_) {}
   try { state.changes = await fetchJson('data/derived/weekly_changes.json'); } catch (_) {}
   try { state.narratives = await fetchJson('data/derived/narratives.json'); } catch (_) {}
+  try { state.aiContext = await fetchJson('data/ai_context.json'); } catch (_) {}
 
   $('loading-state').style.display = 'none';
   $('dashboard').style.display = 'block';
@@ -565,6 +719,9 @@ async function loadAll() {
 
   // Render watchlist
   if (state.watchlist) renderWatchlist();
+
+  // Render intelligence tab
+  if (state.aiContext) renderIntelligence();
 }
 
 function showError(msg) {
@@ -945,6 +1102,126 @@ function chartOptions({ yLabel = '', zeroLine = false } = {}) {
       },
     },
   };
+}
+
+// ── Tab Switching ─────────────────────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.tab-panel').forEach(p => {
+      p.style.display = p.id === `tab-${tab}` ? '' : 'none';
+    });
+  });
+});
+
+// ── Positioning Intelligence ───────────────────────────────────────────────────
+function fmtBn(n) {
+  if (n == null) return '—';
+  const sign = n >= 0 ? '+' : '';
+  return sign + Number(n).toFixed(1) + 'B';
+}
+
+function renderTriggerMap(market, priceSubId, triggersId) {
+  if (!state.aiContext) return;
+  const mkt = state.aiContext.markets.find(m => m.market === market);
+  if (!mkt) return;
+
+  const price = mkt.cta_current_price;
+  const ensemble = mkt.cta_ensemble_signal;
+  const estPos = mkt.cta_estimated_position_bn;
+
+  // Price subtitle
+  const priceEl = $(priceSubId);
+  if (priceEl && price != null) {
+    const ensDir = ensemble >= 0.1 ? '▲ LONG' : ensemble <= -0.1 ? '▼ SHORT' : '↔ MIXED';
+    const dirColor = ensemble >= 0.1 ? '#22c55e' : ensemble <= -0.1 ? '#ef4444' : '#94a3b8';
+    priceEl.innerHTML =
+      `Current price: <strong>${fmt(price, 2)}</strong> &nbsp;·&nbsp; ` +
+      `Ensemble: <strong style="color:${dirColor}">${ensDir}</strong> (${ensemble != null ? ensemble.toFixed(2) : '—'}) &nbsp;·&nbsp; ` +
+      `Est. CTA position: <strong>${fmtBn(estPos)}</strong>`;
+  }
+
+  const container = $(triggersId);
+  if (!container) return;
+  container.innerHTML = '';
+
+  const lookbacks = ['16w', '32w', '52w'];
+  lookbacks.forEach(key => {
+    const sig = mkt[`cta_signal_${key}`];
+    if (!sig) return;
+
+    const isLong = sig.direction === 'long';
+    const dist = sig.price_vs_trigger;
+    const pct = price > 0 ? (Math.abs(dist) / price * 100) : 0;
+    // Bar fill: 0–15% distance → 0–100% bar width
+    const fillPct = Math.min(Math.abs(pct) / 15 * 100, 100);
+
+    const row = document.createElement('div');
+    row.className = 'trigger-row';
+    row.innerHTML = `
+      <span class="trigger-label">${key}</span>
+      <div class="trigger-bar-outer">
+        <div class="trigger-bar-fill ${isLong ? 'long' : 'short'}" style="width:${fillPct.toFixed(1)}%"></div>
+      </div>
+      <span class="trigger-info">
+        ${fmt(sig.trigger_price, 0)} <small style="color:var(--text-muted)">(${sig.trigger_date || ''})</small>
+        <span class="trigger-dir ${isLong ? 'long' : 'short'}">${isLong ? '▲ LONG' : '▼ SHORT'}</span>
+      </span>
+    `;
+    container.appendChild(row);
+
+    // Flip note below bar
+    if (sig.flip_note) {
+      const note = document.createElement('div');
+      note.style.cssText = 'color:var(--text-muted);font-size:0.71rem;margin:-0.3rem 0 0.5rem 3.75rem;';
+      note.textContent = sig.flip_note + (dist != null ? ` (${dist >= 0 ? '+' : ''}${fmt(dist, 0)} pts away)` : '');
+      container.appendChild(note);
+    }
+  });
+}
+
+function renderIntelligence() {
+  const ctx = state.aiContext;
+  if (!ctx) return;
+
+  // ── Dollar Notional Table ──
+  const tbody = $('intel-notional-body');
+  if (tbody) {
+    tbody.innerHTML = '';
+    ctx.markets.forEach((mkt, i) => {
+      const gap = mkt.cta_vs_cftc_gap;
+      const gapClass = gap == null ? '' : gap > 0 ? 'gap-pos' : 'gap-neg';
+      const gapArrow = gap == null ? '' : gap > 0 ? '▲ ' : '▼ ';
+      const ensDir = mkt.cta_ensemble_direction || '—';
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="rank-num">${i + 1}</td>
+        <td><strong>${mkt.title}</strong><br><small style="color:var(--text-muted)">${mkt.subtitle||''}</small></td>
+        <td class="${signClass(mkt.cftc_primary_net_bn)}">${fmtBn(mkt.cftc_primary_net_bn)}</td>
+        <td class="${signClass(mkt.cta_estimated_position_bn)}">${fmtBn(mkt.cta_estimated_position_bn)}</td>
+        <td class="${gapClass}">${gap != null ? gapArrow + fmtBn(gap) : '—'}</td>
+        <td style="color:${mkt.cta_ensemble_signal >= 0.1 ? '#22c55e' : mkt.cta_ensemble_signal <= -0.1 ? '#ef4444' : '#94a3b8'}">${ensDir}</td>
+        <td class="${(mkt.percentile||50) >= 80 ? 'pos' : (mkt.percentile||50) <= 20 ? 'neg' : 'neu'}">${mkt.percentile != null ? fmt(mkt.percentile, 0) + 'th' : '—'}</td>
+        <td><span class="regime-badge regime-${regimeCssKey(mkt.regime)}">${mkt.regime||'—'}</span></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ── Trigger Maps ──
+  renderTriggerMap('sp500',  'intel-sp500-price',  'intel-sp500-triggers');
+  renderTriggerMap('nasdaq', 'intel-nasdaq-price', 'intel-nasdaq-triggers');
+  renderTriggerMap('us10y',  'intel-us10y-price',  'intel-us10y-triggers');
+  renderTriggerMap('gold',   'intel-gold-price',   'intel-gold-triggers');
+
+  // ── Cannot-See List ──
+  const cannotSeeEl = $('intel-cannot-see');
+  if (cannotSeeEl && ctx.what_this_dashboard_cannot_see) {
+    cannotSeeEl.innerHTML = ctx.what_this_dashboard_cannot_see
+      .map(item => `<li>${item}</li>`)
+      .join('');
+  }
 }
 
 // ── Events ────────────────────────────────────────────────────────────────────
