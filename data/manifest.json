@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-04-16T05:43:43.028099Z",
+  "generated_at": "2026-04-16T08:14:01.466239Z",
   "sources": {
     "tff": "https://publicreporting.cftc.gov/resource/gpe5-46if.json",
     "disaggregated": "https://publicreporting.cftc.gov/resource/kh3c-gbw2.json",
-    "price": "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?range=3y&interval=1wk"
+    "price": "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?range=3y&interval=1d"
   },
   "markets": [
     {
