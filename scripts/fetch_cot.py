@@ -40,7 +40,11 @@ MARKETS: List[Dict[str, Any]] = [
         "title": "E-mini S&P 500",
         "subtitle": "US Equities",
         "report_family": "tff",
-        "query_name": "E-MINI S&P 500 STOCK INDEX",
+        # Post-2022 CFTC name dropped "STOCK INDEX": "E-MINI S&P 500 - CHICAGO MERCANTILE EXCHANGE"
+        # Shorter query matches both old ("E-MINI S&P 500 STOCK INDEX - CME") and new name.
+        # MICRO variant is excluded by deduplicate_by_date(); highest OI wins.
+        "query_name": "E-MINI S&P 500",
+        "name_must_not_contain": "MICRO",              # belt-and-suspenders: skip micro contract
         "price_symbol": "ES=F",
         "price_label": "S&P 500",
     },
@@ -49,7 +53,10 @@ MARKETS: List[Dict[str, Any]] = [
         "title": "Nasdaq Mini",
         "subtitle": "US Equities",
         "report_family": "tff",
-        "query_name": "NASDAQ-100 STOCK INDEX",
+        # Post-2022 CFTC name: "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE"
+        # Old name was "NASDAQ-100 STOCK INDEX (MINI) - CME".  Both contain "NASDAQ-100".
+        "query_name": "NASDAQ-100",
+        "name_must_not_contain": "MICRO",              # exclude micro variant
         "price_symbol": "NQ=F",
         "price_label": "Nasdaq 100",
     },
@@ -58,6 +65,8 @@ MARKETS: List[Dict[str, Any]] = [
         "title": "UST 10Y Note",
         "subtitle": "Rates",
         "report_family": "tff",
+        # TODO: CFTC renamed 10Y Treasuries post-2022; "TREASURY" returns no rows after 2022.
+        # Run scripts/discover_cftc_names.py with updated search terms to find new name.
         "query_name": "10-YEAR U.S. TREASURY NOTES",
         "price_symbol": "ZN=F",
         "price_label": "US 10Y Note",
@@ -87,7 +96,10 @@ MARKETS: List[Dict[str, Any]] = [
         "title": "British Pound",
         "subtitle": "FX",
         "report_family": "tff",
-        "query_name": "BRITISH POUND STERLING",
+        # Post-2022 CFTC name dropped "STERLING": "BRITISH POUND - CHICAGO MERCANTILE EXCHANGE"
+        # Old name was "BRITISH POUND STERLING - CME".  Both contain "BRITISH POUND".
+        "query_name": "BRITISH POUND",
+        "name_must_not_contain": "/",                  # exclude EUR/GBP and other cross-rates
         "price_symbol": "GBPUSD=X",
         "price_label": "GBP/USD",
     },
@@ -96,6 +108,8 @@ MARKETS: List[Dict[str, Any]] = [
         "title": "USD Index",
         "subtitle": "FX",
         "report_family": "tff",
+        # TODO: CFTC renamed DXY post-2022; "DOLLAR INDEX" returns no rows after 2022.
+        # Run scripts/discover_cftc_names.py with updated search terms to find new name.
         "query_name": "U.S. DOLLAR INDEX",
         "price_symbol": "DX-Y.NYB",
         "price_label": "DXY",

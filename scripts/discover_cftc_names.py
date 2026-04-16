@@ -25,9 +25,15 @@ TIMEOUT = 30
 SEARCHES = [
     ("sp500",  "S&P 500"),
     ("nasdaq", "NASDAQ"),
-    ("us10y",  "TREASURY"),
+    # us10y: "TREASURY" returns no post-2022 rows — trying alternative substrings
+    ("us10y - try 10-YEAR",   "10-YEAR"),
+    ("us10y - try T-NOTE",    "T-NOTE"),
+    ("us10y - try CBOT NOTE", "BOARD OF TRADE"),
+    # dxy: "DOLLAR INDEX" returns no post-2022 rows — trying alternative substrings
+    ("dxy - try U.S. DOLLAR", "U.S. DOLLAR"),
+    ("dxy - try ICE DOLLAR",  "ICE FUTURES"),
+    ("dxy - try USDX",        "USDX"),
     ("gbpfx",  "BRITISH POUND"),
-    ("dxy",    "DOLLAR INDEX"),
     # Working markets for reference
     ("vix",    "VIX"),
     ("eurfx",  "EURO FX"),
