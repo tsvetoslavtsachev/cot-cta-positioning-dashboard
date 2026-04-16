@@ -298,7 +298,7 @@ def fetch_market(market: Dict[str, Any]) -> Dict[str, Any]:
 
     params = {
         "$limit": 5000,
-        "$order": "report_date_as_yyyy_mm_dd ASC",
+        "$order": "report_date_as_yyyy_mm_dd DESC",  # most recent first → ensures we get latest data within limit
         "$where": f"upper(market_and_exchange_names) like '%{market['query_name'].upper()}%'",
     }
     rows = fetch_json(base_url, params=params)
@@ -336,8 +336,8 @@ def fetch_market(market: Dict[str, Any]) -> Dict[str, Any]:
     rows = deduplicate_by_date(rows)
 
     normalizer = normalize_tff_row if family == "tff" else normalize_disagg_row
-    normalized = [normalizer(row) for row in rows][-LOOKBACK:]
-    normalized = sort_rows(normalized)
+    # Sort ASC first (API returned DESC), then take the most recent LOOKBACK weeks
+    normalized = sort_rows([normalizer(row) for row in rows])[-LOOKBACK:]
     prices = fetch_price_series(market["price_symbol"])
 
     payload = {
