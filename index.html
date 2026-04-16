@@ -755,15 +755,29 @@ function renderMarket(key) {
     }
   });
 
+  // Fallback: if COT dates don't overlap with price data (e.g. COT data is stale/old),
+  // display price-only chart so the panel is never blank.
+  let chartLabels, chartClose, chartNet, priceOnlyMode = false;
+  if (alignedLabels.length > 0) {
+    chartLabels = alignedLabels;
+    chartClose  = alignedClose;
+    chartNet    = alignedNet;
+  } else {
+    priceOnlyMode = true;
+    chartLabels = priceArr.map(p => new Date(p.ts).toISOString().slice(0,10));
+    chartClose  = priceArr.map(p => p.close);
+    chartNet    = [];
+  }
+
   destroyChart('price-chart');
   state.charts['price-chart'] = new Chart($('price-chart').getContext('2d'), {
     data: {
-      labels: alignedLabels,
+      labels: chartLabels,
       datasets: [
         {
           type: 'line',
-          label: market.metadata?.price_label || 'Price',
-          data: alignedClose,
+          label: (market.metadata?.price_label || 'Price') + (priceOnlyMode ? ' (COT data outdated)' : ''),
+          data: chartClose,
           borderColor: '#f8fafc',
           backgroundColor: 'transparent',
           tension: 0.3,
@@ -771,16 +785,16 @@ function renderMarket(key) {
           borderWidth: 2,
           yAxisID: 'y',
         },
-        {
+        ...(priceOnlyMode ? [] : [{
           type: 'bar',
           label: 'Primary Net',
-          data: alignedNet,
-          backgroundColor: alignedNet.map(v =>
+          data: chartNet,
+          backgroundColor: chartNet.map(v =>
             v >= 0 ? 'rgba(34,197,94,0.45)' : 'rgba(239,68,68,0.45)'
           ),
           borderWidth: 0,
           yAxisID: 'y1',
-        },
+        }]),
       ],
     },
     options: {
@@ -793,13 +807,19 @@ function renderMarket(key) {
       scales: {
         x: { ticks: { color: '#8892a4', maxRotation: 0, maxTicksLimit: 8, font: { size: 10 } }, grid: { color: '#2e3347' } },
         y: { position: 'left', ticks: { color: '#8892a4', font: { size: 10 } }, grid: { color: '#2e3347' } },
-        y1: { position: 'right', ticks: { color: '#8892a4', font: { size: 10 } }, grid: { drawOnChartArea: false } },
+        y1: { position: 'right', display: !priceOnlyMode, ticks: { color: '#8892a4', font: { size: 10 } }, grid: { drawOnChartArea: false } },
       },
     },
   });
 
   // ── Cohort Bar Chart ──
   const latestRow = cot[cot.length - 1];
+  // Show the data date in the card title so stale data is visually obvious
+  const cohortTitleEl = document.querySelector('[id="cohort-chart"]')
+    ?.closest('.card')?.querySelector('.card-title');
+  if (cohortTitleEl && latestRow?.date) {
+    cohortTitleEl.textContent = `Cross-Cohort Structure  (${latestRow.date.slice(0,10)})`;
+  }
   destroyChart('cohort-chart');
   state.charts['cohort-chart'] = new Chart($('cohort-chart').getContext('2d'), {
     type: 'bar',
