@@ -65,9 +65,10 @@ MARKETS: List[Dict[str, Any]] = [
         "title": "UST 10Y Note",
         "subtitle": "Rates",
         "report_family": "tff",
-        # TODO: CFTC renamed 10Y Treasuries post-2022; "TREASURY" returns no rows after 2022.
-        # Run scripts/discover_cftc_names.py with updated search terms to find new name.
-        "query_name": "10-YEAR U.S. TREASURY NOTES",
+        # Post-2022 CFTC name: "UST 10Y NOTE - CHICAGO BOARD OF TRADE"
+        # Old name was "10-YEAR U.S. TREASURY NOTES - CHICAGO BOARD OF TRADE".
+        # "UST 10Y NOTE" does NOT match the Ultra variant ("ULTRA UST 10Y"), so no extra filter needed.
+        "query_name": "UST 10Y NOTE",
         "price_symbol": "ZN=F",
         "price_label": "US 10Y Note",
     },
@@ -108,9 +109,11 @@ MARKETS: List[Dict[str, Any]] = [
         "title": "USD Index",
         "subtitle": "FX",
         "report_family": "tff",
-        # TODO: CFTC renamed DXY post-2022; "DOLLAR INDEX" returns no rows after 2022.
-        # Run scripts/discover_cftc_names.py with updated search terms to find new name.
-        "query_name": "U.S. DOLLAR INDEX",
+        # Post-2022 CFTC name: "USD INDEX - ICE FUTURES U.S."
+        # Old name was "U.S. DOLLAR INDEX - ICE FUTURES U.S." — "USD INDEX" ≠ "U.S. DOLLAR INDEX"
+        # so the LIKE query won't match historical rows; the chart will show post-2022 data only,
+        # which is still ~4 years and sufficient for positioning analysis.
+        "query_name": "USD INDEX",
         "price_symbol": "DX-Y.NYB",
         "price_label": "DXY",
     },
