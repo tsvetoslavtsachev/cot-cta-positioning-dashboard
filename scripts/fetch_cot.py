@@ -247,66 +247,53 @@ def sort_rows(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return sorted(rows, key=lambda x: x.get("date") or "")
 
 
+def _safe_oi(row: Dict[str, Any]) -> float:
+    """Return open interest as float; 0.0 on any parse failure."""
+    val = row.get("open_interest_all")
+    if val is None:
+        return 0.0
+    try:
+        return float(str(val).replace(",", ""))
+    except (ValueError, TypeError):
+        return 0.0
+
+
 def deduplicate_by_date(raw_rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Keep exactly one raw API row per report date.
 
     The CFTC LIKE query can return multiple contract variants for the same date
-    (standard + micro + combined + cross-rates etc.).  Mixing them produces
-    spurious spikes and null fields in the output.
+    (standard + COMBINED + MICRO + cross-rates etc.).  Strategy:
 
-    Strategy:
-    1. Separate COMBINED/CONSOLIDATED rows from individual contract rows.
-    2. For dates where individual data exists, prefer it (avoids double-counting).
-       For dates where only COMBINED data exists (CFTC phased out individual
-       reporting for some markets after ~2022), use COMBINED as fallback.
-    3. Drop MICRO / MINI-SIZED sub-standard contracts.
-    4. Among remaining rows for the same date, keep the one with the highest
-       open_interest_all — that is the primary, most liquid contract.
+    1. Drop MICRO / MINI-SIZED sub-standard contracts (often incomplete data).
+    2. Among remaining rows for the same date, keep the one with the highest
+       open_interest_all.
+
+    This naturally handles the CFTC's post-2022 switch from per-exchange to
+    COMBINED-only reporting: COMBINED rows have the highest aggregate OI for
+    recent dates and are selected automatically.  For older dates where both
+    individual and COMBINED exist, COMBINED still wins (higher OI), giving a
+    consistent series throughout.
     """
     from collections import defaultdict
-
-    def is_combined(row: Dict[str, Any]) -> bool:
-        return "COMBINED" in str(row.get("market_and_exchange_names", "")).upper()
-
-    individual = [r for r in raw_rows if not is_combined(r)]
-    combined   = [r for r in raw_rows if is_combined(r)]
-
-    # Dates covered by individual-exchange data
-    individual_dates = {str(r.get("report_date_as_yyyy_mm_dd") or "")[:10] for r in individual}
-
-    # Merge: individual rows + COMBINED rows only for dates with no individual data
-    merged = individual + [
-        r for r in combined
-        if str(r.get("report_date_as_yyyy_mm_dd") or "")[:10] not in individual_dates
-    ]
 
     # Drop sub-standard contract variants
     EXCLUDE = ("MICRO", "MINI-SIZED")
     filtered = [
-        r for r in merged
+        r for r in raw_rows
         if not any(kw in str(r.get("market_and_exchange_names", "")).upper() for kw in EXCLUDE)
     ]
     if not filtered:
-        filtered = merged  # fallback: nothing survived filtering
+        filtered = raw_rows  # fallback: keep everything if nothing survives
 
-    # Group by date (normalise to YYYY-MM-DD), keep highest open interest
+    # Group by normalised date (YYYY-MM-DD), keep highest open interest
     by_date: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     for row in filtered:
         date_key = str(row.get("report_date_as_yyyy_mm_dd") or "")[:10]
         by_date[date_key].append(row)
 
     result = []
-    for date_key, date_rows in by_date.items():
-        if len(date_rows) == 1:
-            result.append(date_rows[0])
-        else:
-            best = max(
-                date_rows,
-                key=lambda r: float(
-                    str(r.get("open_interest_all") or 0).replace(",", "") or 0
-                ),
-            )
-            result.append(best)
+    for date_rows in by_date.values():
+        result.append(max(date_rows, key=_safe_oi))
     return result
 
 
