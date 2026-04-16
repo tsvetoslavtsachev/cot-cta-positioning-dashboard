@@ -24,7 +24,7 @@ import requests
 
 BASE_TFF = "https://publicreporting.cftc.gov/resource/gpe5-46if.json"
 BASE_DISAGG = "https://publicreporting.cftc.gov/resource/kh3c-gbw2.json"
-YAHOO_CHART = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?range=3y&interval=1wk"
+YAHOO_CHART = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?range=3y&interval=1d"
 LOOKBACK = 156
 HEADERS = {"User-Agent": "cot-cta-dashboard/1.0"}
 TIMEOUT = 30

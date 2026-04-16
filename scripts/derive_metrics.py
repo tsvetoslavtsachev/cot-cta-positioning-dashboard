@@ -11,9 +11,36 @@ from __future__ import annotations
 
 import json
 import math
+from datetime import datetime, timedelta
 from pathlib import Path
 from statistics import mean, pstdev
 from typing import Any, Dict, List, Optional
+
+# Dollar-value of one index point (or one price unit) per contract.
+# Formula: notional_usd = primary_net × DOLLAR_PER_POINT × price_on_cot_date
+#
+# Equity indices  — S&P 500 e-mini $50/pt, Nasdaq e-mini $20/pt
+# Rates           — ZN $1,000/pt (price ≈ % of $100K face → $1K per point ≈ $100K face value)
+# Volatility      — VIX futures $1,000/pt
+# FX              — price is exchange rate so multiply by contract-size in foreign currency
+#                   EUR/FX: 125,000 EUR × rate = USD notional per contract
+#                   GBP/FX: 62,500 GBP × rate = USD notional per contract
+#                   DXY:    $1,000 per index point
+# Commodities     — Gold 100 oz × $/oz; WTI 1,000 bbl × $/bbl; Bitcoin 5 BTC × $/BTC
+#                   Corn: Yahoo returns ¢/bushel → 5,000 bu × price/100 = 50 × price
+DOLLAR_PER_POINT: Dict[str, float] = {
+    "sp500":   50.0,
+    "nasdaq":  20.0,
+    "us10y":   1_000.0,
+    "vix":     1_000.0,
+    "eurfx":   125_000.0,
+    "gbpfx":   62_500.0,
+    "dxy":     1_000.0,
+    "bitcoin": 5.0,
+    "gold":    100.0,
+    "wti":     1_000.0,
+    "corn":    50.0,    # 5,000 bushels; Yahoo price in ¢/bushel → ÷100 already baked into 50
+}
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
@@ -66,6 +93,33 @@ def pct_change(new: Optional[float], old: Optional[float]) -> Optional[float]:
     if new is None or old in (None, 0):
         return None
     return ((new - old) / abs(old)) * 100.0
+
+
+def get_price_on_date(
+    prices: List[Dict[str, Any]],
+    date_str: str,
+    max_lookback_days: int = 5,
+) -> Optional[float]:
+    """Return the closing price for *date_str* (YYYY-MM-DD or ISO datetime).
+
+    With daily price data we match the exact COT report date (Tuesday).
+    If that day has no price (public holiday, etc.) we fall back up to
+    *max_lookback_days* earlier trading days.  Returns None when no match
+    is found (price history doesn't reach that far back).
+    """
+    target = datetime.strptime(date_str[:10], "%Y-%m-%d")
+    by_date: Dict[str, float] = {}
+    for p in prices:
+        try:
+            dt = datetime.utcfromtimestamp(p["timestamp"])
+            by_date[dt.strftime("%Y-%m-%d")] = p["close"]
+        except (KeyError, TypeError, OSError):
+            continue
+    for lag in range(max_lookback_days + 1):
+        key = (target - timedelta(days=lag)).strftime("%Y-%m-%d")
+        if key in by_date:
+            return by_date[key]
+    return None
 
 
 
@@ -139,12 +193,31 @@ def build_market_summary(market_meta: Dict[str, Any], payload: Dict[str, Any]) -
         latest["primary_delta_4w"] = 0.0
         latest["oi_delta_4w"] = 0.0
 
-    latest["price_change_4w_pct"] = None
+    # --- Price alignment: match exact COT report date using daily price series ---
     prices = payload.get("prices", [])
-    if len(prices) >= 5:
-        latest_close = prices[-1].get("close")
-        prior_close = prices[-5].get("close")
-        latest["price_change_4w_pct"] = round(pct_change(latest_close, prior_close) or 0.0, 2)
+    cot_date = latest.get("date", "")
+    cot_date_4w = previous_4w.get("date", "") if previous_4w else ""
+
+    latest_close = get_price_on_date(prices, cot_date) if cot_date else None
+    prior_close = get_price_on_date(prices, cot_date_4w) if cot_date_4w else None
+
+    latest["price_change_4w_pct"] = (
+        round(pct_change(latest_close, prior_close) or 0.0, 2)
+        if (latest_close is not None and prior_close is not None)
+        else None
+    )
+
+    # --- Dollar-value of net positioning (notional USD, in billions for readability) ---
+    market_key = market_meta["key"]
+    multiplier = DOLLAR_PER_POINT.get(market_key)
+    primary_net = latest.get("primary_net")
+    if multiplier is not None and primary_net is not None and latest_close is not None:
+        notional = primary_net * multiplier * latest_close
+        latest["notional_usd"] = round(notional, 0)           # exact dollars
+        latest["notional_usd_bn"] = round(notional / 1e9, 2)  # billions (for display)
+    else:
+        latest["notional_usd"] = None
+        latest["notional_usd_bn"] = None
 
     latest["regime"] = regime_label(latest)
     latest["watchlist_score"] = score_market(latest, previous_4w)
@@ -250,6 +323,7 @@ def main() -> None:
                 "primary_delta_4w": summary.get("primary_delta_4w"),
                 "secondary_net": summary.get("secondary_net"),
                 "price_change_4w_pct": summary.get("price_change_4w_pct"),
+                "notional_usd_bn": summary.get("notional_usd_bn"),  # net positioning in $B
                 "takeaway": summary.get("takeaway"),
             }
         )
