@@ -11,21 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-04-18T00:00:00.000",
-      "market_name": "CRUDE OIL, LIGHT SWEET-WTI - ICE FUTURES EUROPE",
-      "open_interest": 586232.0,
-      "primary_long": 9098.0,
-      "primary_short": 21917.0,
-      "primary_net": -12819.0,
-      "secondary_long": 233446.0,
-      "secondary_short": 242387.0,
-      "secondary_net": -8941.0,
-      "tertiary_long": 5174.0,
-      "tertiary_short": null,
-      "tertiary_net": null,
-      "report_family": "disaggregated"
-    },
-    {
       "date": "2023-04-25T00:00:00.000",
       "market_name": "CRUDE OIL, LIGHT SWEET-WTI - ICE FUTURES EUROPE",
       "open_interest": 586853.0,
@@ -2346,6 +2331,21 @@
       "secondary_short": 405643.0,
       "secondary_net": 159249.0,
       "tertiary_long": 7929.0,
+      "tertiary_short": null,
+      "tertiary_net": null,
+      "report_family": "disaggregated"
+    },
+    {
+      "date": "2026-04-14T00:00:00.000",
+      "market_name": "CRUDE OIL, LIGHT SWEET-WTI - ICE FUTURES EUROPE",
+      "open_interest": 1212185.0,
+      "primary_long": 9496.0,
+      "primary_short": 47158.0,
+      "primary_net": -37662.0,
+      "secondary_long": 546902.0,
+      "secondary_short": 399750.0,
+      "secondary_net": 147152.0,
+      "tertiary_long": 331.0,
       "tertiary_short": null,
       "tertiary_net": null,
       "report_family": "disaggregated"
@@ -5370,7 +5370,11 @@
     },
     {
       "timestamp": 1776312000,
-      "close": 89.0199966430664
+      "close": 94.69000244140625
+    },
+    {
+      "timestamp": 1776398400,
+      "close": 84.0
     }
   ]
 }

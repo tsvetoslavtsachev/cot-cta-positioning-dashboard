@@ -11,23 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-04-18T00:00:00.000",
-      "market_name": "VIX FUTURES - CBOE FUTURES EXCHANGE",
-      "open_interest": 391654.0,
-      "primary_long": 78446.0,
-      "primary_short": 97643.0,
-      "primary_net": -19197.0,
-      "secondary_long": 106049.0,
-      "secondary_short": 101211.0,
-      "secondary_net": 4838.0,
-      "tertiary_long": 39325.0,
-      "tertiary_short": 24400.0,
-      "tertiary_net": 14925.0,
-      "other_long": 6995.0,
-      "other_short": 5732.0,
-      "report_family": "tff"
-    },
-    {
       "date": "2023-04-25T00:00:00.000",
       "market_name": "VIX FUTURES - CBOE FUTURES EXCHANGE",
       "open_interest": 370163.0,
@@ -2660,6 +2643,23 @@
       "tertiary_net": 32801.0,
       "other_long": 1253.0,
       "other_short": 2487.0,
+      "report_family": "tff"
+    },
+    {
+      "date": "2026-04-14T00:00:00.000",
+      "market_name": "VIX FUTURES - CBOE FUTURES EXCHANGE",
+      "open_interest": 365168.0,
+      "primary_long": 65256.0,
+      "primary_short": 95078.0,
+      "primary_net": -29822.0,
+      "secondary_long": 48923.0,
+      "secondary_short": 47654.0,
+      "secondary_net": 1269.0,
+      "tertiary_long": 77943.0,
+      "tertiary_short": 51710.0,
+      "tertiary_net": 26233.0,
+      "other_long": 2556.0,
+      "other_short": 1518.0,
       "report_family": "tff"
     }
   ],
@@ -5674,7 +5674,11 @@
     },
     {
       "timestamp": 1776322800,
-      "close": 18.260000228881836
+      "close": 17.940000534057617
+    },
+    {
+      "timestamp": 1776409200,
+      "close": 17.479999542236328
     }
   ]
 }

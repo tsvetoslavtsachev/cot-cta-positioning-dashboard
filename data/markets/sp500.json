@@ -11,23 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-04-18T00:00:00.000",
-      "market_name": "E-MINI S&P 500 - CHICAGO MERCANTILE EXCHANGE",
-      "open_interest": 2278321.0,
-      "primary_long": 119603.0,
-      "primary_short": 666899.0,
-      "primary_net": -547296.0,
-      "secondary_long": 1026352.0,
-      "secondary_short": 434887.0,
-      "secondary_net": 591465.0,
-      "tertiary_long": 445296.0,
-      "tertiary_short": 321508.0,
-      "tertiary_net": 123788.0,
-      "other_long": 86887.0,
-      "other_short": 239271.0,
-      "report_family": "tff"
-    },
-    {
       "date": "2023-04-25T00:00:00.000",
       "market_name": "E-MINI S&P 500 - CHICAGO MERCANTILE EXCHANGE",
       "open_interest": 2265794.0,
@@ -2660,6 +2643,23 @@
       "tertiary_net": -808612.0,
       "other_long": 83539.0,
       "other_short": 34073.0,
+      "report_family": "tff"
+    },
+    {
+      "date": "2026-04-14T00:00:00.000",
+      "market_name": "E-MINI S&P 500 - CHICAGO MERCANTILE EXCHANGE",
+      "open_interest": 1959076.0,
+      "primary_long": 123136.0,
+      "primary_short": 543492.0,
+      "primary_net": -420356.0,
+      "secondary_long": 1201198.0,
+      "secondary_short": 198055.0,
+      "secondary_net": 1003143.0,
+      "tertiary_long": 137784.0,
+      "tertiary_short": 831374.0,
+      "tertiary_net": -693590.0,
+      "other_long": 74200.0,
+      "other_short": 33491.0,
       "report_family": "tff"
     }
   ],
@@ -5686,7 +5686,11 @@
     },
     {
       "timestamp": 1776312000,
-      "close": 7065.0
+      "close": 7077.0
+    },
+    {
+      "timestamp": 1776398400,
+      "close": 7164.25
     }
   ]
 }

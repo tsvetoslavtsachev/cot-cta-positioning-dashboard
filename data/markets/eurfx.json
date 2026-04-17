@@ -11,23 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-04-18T00:00:00.000",
-      "market_name": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
-      "open_interest": 766374.0,
-      "primary_long": 65844.0,
-      "primary_short": 57520.0,
-      "primary_net": 8324.0,
-      "secondary_long": 505959.0,
-      "secondary_short": 73677.0,
-      "secondary_net": 432282.0,
-      "tertiary_long": 19870.0,
-      "tertiary_short": 536511.0,
-      "tertiary_net": -516641.0,
-      "other_long": 38442.0,
-      "other_short": 11331.0,
-      "report_family": "tff"
-    },
-    {
       "date": "2023-04-25T00:00:00.000",
       "market_name": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
       "open_interest": 772882.0,
@@ -2660,6 +2643,23 @@
       "tertiary_net": -303428.0,
       "other_long": 20709.0,
       "other_short": 16904.0,
+      "report_family": "tff"
+    },
+    {
+      "date": "2026-04-14T00:00:00.000",
+      "market_name": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
+      "open_interest": 788828.0,
+      "primary_long": 117694.0,
+      "primary_short": 92312.0,
+      "primary_net": 25382.0,
+      "secondary_long": 434892.0,
+      "secondary_short": 164450.0,
+      "secondary_net": 270442.0,
+      "tertiary_long": 47901.0,
+      "tertiary_short": 385359.0,
+      "tertiary_net": -337458.0,
+      "other_long": 22669.0,
+      "other_short": 17549.0,
       "report_family": "tff"
     }
   ],
@@ -5777,8 +5777,16 @@
       "close": 1.179940938949585
     },
     {
-      "timestamp": 1776337622,
-      "close": 1.1789672374725342
+      "timestamp": 1776294000,
+      "close": 1.1809163093566895
+    },
+    {
+      "timestamp": 1776380400,
+      "close": 1.1782727241516113
+    },
+    {
+      "timestamp": 1776461341,
+      "close": 1.176747441291809
     }
   ]
 }

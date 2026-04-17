@@ -11,23 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-04-18T00:00:00.000",
-      "market_name": "BITCOIN - CHICAGO MERCANTILE EXCHANGE",
-      "open_interest": 15385.0,
-      "primary_long": 4053.0,
-      "primary_short": 7737.0,
-      "primary_net": -3684.0,
-      "secondary_long": 7041.0,
-      "secondary_short": 249.0,
-      "secondary_net": 6792.0,
-      "tertiary_long": 493.0,
-      "tertiary_short": 3998.0,
-      "tertiary_net": -3505.0,
-      "other_long": 557.0,
-      "other_short": 825.0,
-      "report_family": "tff"
-    },
-    {
       "date": "2023-04-25T00:00:00.000",
       "market_name": "BITCOIN - CHICAGO MERCANTILE EXCHANGE",
       "open_interest": 14064.0,
@@ -2661,13 +2644,26 @@
       "other_long": 710.0,
       "other_short": 274.0,
       "report_family": "tff"
+    },
+    {
+      "date": "2026-04-14T00:00:00.000",
+      "market_name": "BITCOIN - CHICAGO MERCANTILE EXCHANGE",
+      "open_interest": 23761.0,
+      "primary_long": 3318.0,
+      "primary_short": 13557.0,
+      "primary_net": -10239.0,
+      "secondary_long": 6505.0,
+      "secondary_short": 1244.0,
+      "secondary_net": 5261.0,
+      "tertiary_long": 6520.0,
+      "tertiary_short": 2326.0,
+      "tertiary_net": 4194.0,
+      "other_long": 1326.0,
+      "other_short": 392.0,
+      "report_family": "tff"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1681603200,
-      "close": 30315.35546875
-    },
     {
       "timestamp": 1681689600,
       "close": 29445.044921875
@@ -7050,7 +7046,11 @@
     },
     {
       "timestamp": 1776297600,
-      "close": 74361.9921875
+      "close": 75152.1328125
+    },
+    {
+      "timestamp": 1776384000,
+      "close": 77452.4921875
     }
   ]
 }

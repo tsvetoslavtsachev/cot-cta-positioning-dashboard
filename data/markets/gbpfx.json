@@ -11,23 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-04-18T00:00:00.000",
-      "market_name": "BRITISH POUND - CHICAGO MERCANTILE EXCHANGE",
-      "open_interest": 224536.0,
-      "primary_long": 52218.0,
-      "primary_short": 47665.0,
-      "primary_net": 4553.0,
-      "secondary_long": 60652.0,
-      "secondary_short": 61420.0,
-      "secondary_net": -768.0,
-      "tertiary_long": 55280.0,
-      "tertiary_short": 64365.0,
-      "tertiary_net": -9085.0,
-      "other_long": 1387.0,
-      "other_short": 2780.0,
-      "report_family": "tff"
-    },
-    {
       "date": "2023-04-25T00:00:00.000",
       "market_name": "BRITISH POUND - CHICAGO MERCANTILE EXCHANGE",
       "open_interest": 231666.0,
@@ -2660,6 +2643,23 @@
       "tertiary_net": 79768.0,
       "other_long": 0.0,
       "other_short": 497.0,
+      "report_family": "tff"
+    },
+    {
+      "date": "2026-04-14T00:00:00.000",
+      "market_name": "BRITISH POUND - CHICAGO MERCANTILE EXCHANGE",
+      "open_interest": 250053.0,
+      "primary_long": 54047.0,
+      "primary_short": 31716.0,
+      "primary_net": 22331.0,
+      "secondary_long": 36200.0,
+      "secondary_short": 124115.0,
+      "secondary_net": -87915.0,
+      "tertiary_long": 125770.0,
+      "tertiary_short": 56230.0,
+      "tertiary_net": 69540.0,
+      "other_long": 568.0,
+      "other_short": 0.0,
       "report_family": "tff"
     }
   ],
@@ -5777,8 +5777,16 @@
       "close": 1.357533574104309
     },
     {
-      "timestamp": 1776337622,
-      "close": 1.3551788330078125
+      "timestamp": 1776294000,
+      "close": 1.3573696613311768
+    },
+    {
+      "timestamp": 1776380400,
+      "close": 1.3526124954223633
+    },
+    {
+      "timestamp": 1776461341,
+      "close": 1.351586937904358
     }
   ]
 }

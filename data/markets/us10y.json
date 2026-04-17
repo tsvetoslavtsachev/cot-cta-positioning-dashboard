@@ -11,23 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-04-18T00:00:00.000",
-      "market_name": "UST 10Y NOTE - CHICAGO BOARD OF TRADE",
-      "open_interest": 4393559.0,
-      "primary_long": 321540.0,
-      "primary_short": 1556601.0,
-      "primary_net": -1235061.0,
-      "secondary_long": 2229269.0,
-      "secondary_short": 1180691.0,
-      "secondary_net": 1048578.0,
-      "tertiary_long": 179896.0,
-      "tertiary_short": 298508.0,
-      "tertiary_net": -118612.0,
-      "other_long": 420747.0,
-      "other_short": 156993.0,
-      "report_family": "tff"
-    },
-    {
       "date": "2023-04-25T00:00:00.000",
       "market_name": "UST 10Y NOTE - CHICAGO BOARD OF TRADE",
       "open_interest": 4362222.0,
@@ -2660,6 +2643,23 @@
       "tertiary_net": -420554.0,
       "other_long": 330677.0,
       "other_short": 175957.0,
+      "report_family": "tff"
+    },
+    {
+      "date": "2026-04-14T00:00:00.000",
+      "market_name": "UST 10Y NOTE - CHICAGO BOARD OF TRADE",
+      "open_interest": 5187440.0,
+      "primary_long": 328463.0,
+      "primary_short": 2338434.0,
+      "primary_net": -2009971.0,
+      "secondary_long": 3049475.0,
+      "secondary_short": 836218.0,
+      "secondary_net": 2213257.0,
+      "tertiary_long": 206647.0,
+      "tertiary_short": 601050.0,
+      "tertiary_net": -394403.0,
+      "other_long": 317570.0,
+      "other_short": 168861.0,
       "report_family": "tff"
     }
   ],
@@ -5686,7 +5686,11 @@
     },
     {
       "timestamp": 1776312000,
-      "close": 111.46875
+      "close": 111.21875
+    },
+    {
+      "timestamp": 1776398400,
+      "close": 111.640625
     }
   ]
 }

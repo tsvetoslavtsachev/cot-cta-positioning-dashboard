@@ -11,21 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-04-18T00:00:00.000",
-      "market_name": "GOLD - COMMODITY EXCHANGE INC.",
-      "open_interest": 748698.0,
-      "primary_long": 164063.0,
-      "primary_short": 29810.0,
-      "primary_net": 134253.0,
-      "secondary_long": 30218.0,
-      "secondary_short": 76279.0,
-      "secondary_net": -46061.0,
-      "tertiary_long": 93761.0,
-      "tertiary_short": null,
-      "tertiary_net": null,
-      "report_family": "disaggregated"
-    },
-    {
       "date": "2023-04-25T00:00:00.000",
       "market_name": "GOLD - COMMODITY EXCHANGE INC.",
       "open_interest": 704204.0,
@@ -2346,6 +2331,21 @@
       "secondary_short": 41800.0,
       "secondary_net": -21959.0,
       "tertiary_long": 30676.0,
+      "tertiary_short": null,
+      "tertiary_net": null,
+      "report_family": "disaggregated"
+    },
+    {
+      "date": "2026-04-14T00:00:00.000",
+      "market_name": "GOLD - COMMODITY EXCHANGE INC.",
+      "open_interest": 565169.0,
+      "primary_long": 128638.0,
+      "primary_short": 29788.0,
+      "primary_net": 98850.0,
+      "secondary_long": 22048.0,
+      "secondary_short": 43817.0,
+      "secondary_net": -21769.0,
+      "tertiary_long": 28767.0,
       "tertiary_short": null,
       "tertiary_net": null,
       "report_family": "disaggregated"
@@ -5370,7 +5370,11 @@
     },
     {
       "timestamp": 1776312000,
-      "close": 4836.89990234375
+      "close": 4785.39990234375
+    },
+    {
+      "timestamp": 1776398400,
+      "close": 4849.39990234375
     }
   ]
 }

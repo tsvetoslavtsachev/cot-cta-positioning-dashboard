@@ -11,23 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-04-18T00:00:00.000",
-      "market_name": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
-      "open_interest": 49012.0,
-      "primary_long": 10914.0,
-      "primary_short": 17239.0,
-      "primary_net": -6325.0,
-      "secondary_long": 16242.0,
-      "secondary_short": 8519.0,
-      "secondary_net": 7723.0,
-      "tertiary_long": 8295.0,
-      "tertiary_short": 7517.0,
-      "tertiary_net": 778.0,
-      "other_long": 2979.0,
-      "other_short": 3337.0,
-      "report_family": "tff"
-    },
-    {
       "date": "2023-04-25T00:00:00.000",
       "market_name": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
       "open_interest": 49531.0,
@@ -2660,6 +2643,23 @@
       "tertiary_net": -15695.0,
       "other_long": 9552.0,
       "other_short": 4236.0,
+      "report_family": "tff"
+    },
+    {
+      "date": "2026-04-14T00:00:00.000",
+      "market_name": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+      "open_interest": 276532.0,
+      "primary_long": 41041.0,
+      "primary_short": 99933.0,
+      "primary_net": -58892.0,
+      "secondary_long": 107107.0,
+      "secondary_short": 29810.0,
+      "secondary_net": 77297.0,
+      "tertiary_long": 53045.0,
+      "tertiary_short": 76659.0,
+      "tertiary_net": -23614.0,
+      "other_long": 9562.0,
+      "other_short": 4026.0,
       "report_family": "tff"
     }
   ],
@@ -5686,7 +5686,11 @@
     },
     {
       "timestamp": 1776312000,
-      "close": 26405.25
+      "close": 26487.25
+    },
+    {
+      "timestamp": 1776398400,
+      "close": 26840.75
     }
   ]
 }
