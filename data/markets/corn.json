@@ -11,21 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-04-25T00:00:00.000",
-      "market_name": "CORN - CHICAGO BOARD OF TRADE",
-      "open_interest": 1569537.0,
-      "primary_long": 190680.0,
-      "primary_short": 205977.0,
-      "primary_net": -15297.0,
-      "secondary_long": 439230.0,
-      "secondary_short": 620657.0,
-      "secondary_net": -181427.0,
-      "tertiary_long": 251812.0,
-      "tertiary_short": null,
-      "tertiary_net": null,
-      "report_family": "disaggregated"
-    },
-    {
       "date": "2023-05-02T00:00:00.000",
       "market_name": "CORN - CHICAGO BOARD OF TRADE",
       "open_interest": 1619667.0,
@@ -2349,21 +2334,24 @@
       "tertiary_short": null,
       "tertiary_net": null,
       "report_family": "disaggregated"
+    },
+    {
+      "date": "2026-04-21T00:00:00.000",
+      "market_name": "CORN - CHICAGO BOARD OF TRADE",
+      "open_interest": 2380698.0,
+      "primary_long": 329102.0,
+      "primary_short": 144696.0,
+      "primary_net": 184406.0,
+      "secondary_long": 508911.0,
+      "secondary_short": 973358.0,
+      "secondary_net": -464447.0,
+      "tertiary_long": 342903.0,
+      "tertiary_short": null,
+      "tertiary_net": null,
+      "report_family": "disaggregated"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1681876800,
-      "close": 672.25
-    },
-    {
-      "timestamp": 1681963200,
-      "close": 663.75
-    },
-    {
-      "timestamp": 1682049600,
-      "close": 663.25
-    },
     {
       "timestamp": 1682308800,
       "close": 651.25
@@ -5363,6 +5351,26 @@
     {
       "timestamp": 1776398400,
       "close": 448.75
+    },
+    {
+      "timestamp": 1776657600,
+      "close": 452.0
+    },
+    {
+      "timestamp": 1776744000,
+      "close": 453.75
+    },
+    {
+      "timestamp": 1776830400,
+      "close": 454.25
+    },
+    {
+      "timestamp": 1776916800,
+      "close": 455.5
+    },
+    {
+      "timestamp": 1777003200,
+      "close": 463.5
     }
   ]
 }

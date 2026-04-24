@@ -11,23 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-04-25T00:00:00.000",
-      "market_name": "UST 10Y NOTE - CHICAGO BOARD OF TRADE",
-      "open_interest": 4362222.0,
-      "primary_long": 292526.0,
-      "primary_short": 1521634.0,
-      "primary_net": -1229108.0,
-      "secondary_long": 2252012.0,
-      "secondary_short": 1109545.0,
-      "secondary_net": 1142467.0,
-      "tertiary_long": 178753.0,
-      "tertiary_short": 326521.0,
-      "tertiary_net": -147768.0,
-      "other_long": 337067.0,
-      "other_short": 157703.0,
-      "report_family": "tff"
-    },
-    {
       "date": "2023-05-02T00:00:00.000",
       "market_name": "UST 10Y NOTE - CHICAGO BOARD OF TRADE",
       "open_interest": 4396673.0,
@@ -2661,21 +2644,26 @@
       "other_long": 317570.0,
       "other_short": 168861.0,
       "report_family": "tff"
+    },
+    {
+      "date": "2026-04-21T00:00:00.000",
+      "market_name": "UST 10Y NOTE - CHICAGO BOARD OF TRADE",
+      "open_interest": 5213875.0,
+      "primary_long": 275795.0,
+      "primary_short": 2316070.0,
+      "primary_net": -2040275.0,
+      "secondary_long": 3085072.0,
+      "secondary_short": 884702.0,
+      "secondary_net": 2200370.0,
+      "tertiary_long": 224229.0,
+      "tertiary_short": 622885.0,
+      "tertiary_net": -398656.0,
+      "other_long": 333047.0,
+      "other_short": 158568.0,
+      "report_family": "tff"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1681876800,
-      "close": 114.1875
-    },
-    {
-      "timestamp": 1681963200,
-      "close": 114.65625
-    },
-    {
-      "timestamp": 1682049600,
-      "close": 114.46875
-    },
     {
       "timestamp": 1682308800,
       "close": 114.875
@@ -5683,6 +5671,26 @@
     {
       "timestamp": 1776398400,
       "close": 111.71875
+    },
+    {
+      "timestamp": 1776657600,
+      "close": 111.65625
+    },
+    {
+      "timestamp": 1776744000,
+      "close": 111.296875
+    },
+    {
+      "timestamp": 1776830400,
+      "close": 111.28125
+    },
+    {
+      "timestamp": 1776916800,
+      "close": 111.046875
+    },
+    {
+      "timestamp": 1777003200,
+      "close": 111.234375
     }
   ]
 }

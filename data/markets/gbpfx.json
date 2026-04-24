@@ -11,23 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-04-25T00:00:00.000",
-      "market_name": "BRITISH POUND - CHICAGO MERCANTILE EXCHANGE",
-      "open_interest": 231666.0,
-      "primary_long": 57163.0,
-      "primary_short": 47200.0,
-      "primary_net": 9963.0,
-      "secondary_long": 60203.0,
-      "secondary_short": 65310.0,
-      "secondary_net": -5107.0,
-      "tertiary_long": 55918.0,
-      "tertiary_short": 63473.0,
-      "tertiary_net": -7555.0,
-      "other_long": 1387.0,
-      "other_short": 3379.0,
-      "report_family": "tff"
-    },
-    {
       "date": "2023-05-02T00:00:00.000",
       "market_name": "BRITISH POUND - CHICAGO MERCANTILE EXCHANGE",
       "open_interest": 231602.0,
@@ -2661,29 +2644,26 @@
       "other_long": 568.0,
       "other_short": 0.0,
       "report_family": "tff"
+    },
+    {
+      "date": "2026-04-21T00:00:00.000",
+      "market_name": "BRITISH POUND - CHICAGO MERCANTILE EXCHANGE",
+      "open_interest": 263523.0,
+      "primary_long": 60536.0,
+      "primary_short": 31399.0,
+      "primary_net": 29137.0,
+      "secondary_long": 41553.0,
+      "secondary_short": 124739.0,
+      "secondary_net": -83186.0,
+      "tertiary_long": 126045.0,
+      "tertiary_short": 68234.0,
+      "tertiary_net": 57811.0,
+      "other_long": 1038.0,
+      "other_short": 0.0,
+      "report_family": "tff"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1681686000,
-      "close": 1.2400178909301758
-    },
-    {
-      "timestamp": 1681772400,
-      "close": 1.2375471591949463
-    },
-    {
-      "timestamp": 1681858800,
-      "close": 1.2425447702407837
-    },
-    {
-      "timestamp": 1681945200,
-      "close": 1.2428845167160034
-    },
-    {
-      "timestamp": 1682031600,
-      "close": 1.2440905570983887
-    },
     {
       "timestamp": 1682290800,
       "close": 1.2449734210968018
@@ -5785,8 +5765,28 @@
       "close": 1.3526124954223633
     },
     {
-      "timestamp": 1776633821,
-      "close": 1.3490270376205444
+      "timestamp": 1776639600,
+      "close": 1.348435878753662
+    },
+    {
+      "timestamp": 1776726000,
+      "close": 1.3531250953674316
+    },
+    {
+      "timestamp": 1776812400,
+      "close": 1.3509680032730103
+    },
+    {
+      "timestamp": 1776898800,
+      "close": 1.3500378131866455
+    },
+    {
+      "timestamp": 1776985200,
+      "close": 1.3466380834579468
+    },
+    {
+      "timestamp": 1777066178,
+      "close": 1.3531928062438965
     }
   ]
 }
