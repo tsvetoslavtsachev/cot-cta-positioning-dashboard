@@ -11,21 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-05-02T00:00:00.000",
-      "market_name": "CORN - CHICAGO BOARD OF TRADE",
-      "open_interest": 1619667.0,
-      "primary_long": 152174.0,
-      "primary_short": 270320.0,
-      "primary_net": -118146.0,
-      "secondary_long": 452902.0,
-      "secondary_short": 551955.0,
-      "secondary_net": -99053.0,
-      "tertiary_long": 256502.0,
-      "tertiary_short": null,
-      "tertiary_net": null,
-      "report_family": "disaggregated"
-    },
-    {
       "date": "2023-05-09T00:00:00.000",
       "market_name": "CORN - CHICAGO BOARD OF TRADE",
       "open_interest": 1680175.0,
@@ -2349,29 +2334,24 @@
       "tertiary_short": null,
       "tertiary_net": null,
       "report_family": "disaggregated"
+    },
+    {
+      "date": "2026-04-28T00:00:00.000",
+      "market_name": "CORN - CHICAGO BOARD OF TRADE",
+      "open_interest": 2330624.0,
+      "primary_long": 379321.0,
+      "primary_short": 115218.0,
+      "primary_net": 264103.0,
+      "secondary_long": 472560.0,
+      "secondary_short": 1026926.0,
+      "secondary_net": -554366.0,
+      "tertiary_long": 360234.0,
+      "tertiary_short": null,
+      "tertiary_net": null,
+      "report_family": "disaggregated"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1682308800,
-      "close": 651.25
-    },
-    {
-      "timestamp": 1682395200,
-      "close": 646.5
-    },
-    {
-      "timestamp": 1682481600,
-      "close": 641.5
-    },
-    {
-      "timestamp": 1682568000,
-      "close": 627.0
-    },
-    {
-      "timestamp": 1682654400,
-      "close": 636.0
-    },
     {
       "timestamp": 1682913600,
       "close": 639.5
@@ -5370,7 +5350,27 @@
     },
     {
       "timestamp": 1777003200,
-      "close": 463.5
+      "close": 455.0
+    },
+    {
+      "timestamp": 1777262400,
+      "close": 460.75
+    },
+    {
+      "timestamp": 1777348800,
+      "close": 465.25
+    },
+    {
+      "timestamp": 1777435200,
+      "close": 466.5
+    },
+    {
+      "timestamp": 1777521600,
+      "close": 464.75
+    },
+    {
+      "timestamp": 1777608000,
+      "close": 479.5
     }
   ]
 }

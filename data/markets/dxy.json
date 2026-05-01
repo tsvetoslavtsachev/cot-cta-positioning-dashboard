@@ -11,23 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-05-02T00:00:00.000",
-      "market_name": "USD INDEX - ICE FUTURES U.S.",
-      "open_interest": 32774.0,
-      "primary_long": 10646.0,
-      "primary_short": 8752.0,
-      "primary_net": 1894.0,
-      "secondary_long": 11917.0,
-      "secondary_short": 6253.0,
-      "secondary_net": 5664.0,
-      "tertiary_long": 0.0,
-      "tertiary_short": 11449.0,
-      "tertiary_net": -11449.0,
-      "other_long": 3234.0,
-      "other_short": 1290.0,
-      "report_family": "tff"
-    },
-    {
       "date": "2023-05-09T00:00:00.000",
       "market_name": "USD INDEX - ICE FUTURES U.S.",
       "open_interest": 32175.0,
@@ -2661,29 +2644,26 @@
       "other_long": 2940.0,
       "other_short": 1336.0,
       "report_family": "tff"
+    },
+    {
+      "date": "2026-04-28T00:00:00.000",
+      "market_name": "USD INDEX - ICE FUTURES U.S.",
+      "open_interest": 30611.0,
+      "primary_long": 8782.0,
+      "primary_short": 11943.0,
+      "primary_net": -3161.0,
+      "secondary_long": 9800.0,
+      "secondary_short": 1872.0,
+      "secondary_net": 7928.0,
+      "tertiary_long": 3461.0,
+      "tertiary_short": 10473.0,
+      "tertiary_net": -7012.0,
+      "other_long": 3006.0,
+      "other_short": 1657.0,
+      "report_family": "tff"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1682308800,
-      "close": 101.3499984741211
-    },
-    {
-      "timestamp": 1682395200,
-      "close": 101.86000061035156
-    },
-    {
-      "timestamp": 1682481600,
-      "close": 101.47000122070312
-    },
-    {
-      "timestamp": 1682568000,
-      "close": 101.5
-    },
-    {
-      "timestamp": 1682654400,
-      "close": 101.66999816894531
-    },
     {
       "timestamp": 1682913600,
       "close": 102.1500015258789
@@ -5687,6 +5667,26 @@
     {
       "timestamp": 1777003200,
       "close": 98.51000213623047
+    },
+    {
+      "timestamp": 1777262400,
+      "close": 98.4800033569336
+    },
+    {
+      "timestamp": 1777348800,
+      "close": 98.62000274658203
+    },
+    {
+      "timestamp": 1777435200,
+      "close": 98.91999816894531
+    },
+    {
+      "timestamp": 1777521600,
+      "close": 98.08000183105469
+    },
+    {
+      "timestamp": 1777608000,
+      "close": 98.21099853515625
     }
   ]
 }
