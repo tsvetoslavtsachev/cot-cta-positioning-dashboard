@@ -11,21 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-05-09T00:00:00.000",
-      "market_name": "CRUDE OIL, LIGHT SWEET-WTI - ICE FUTURES EUROPE",
-      "open_interest": 599363.0,
-      "primary_long": 9192.0,
-      "primary_short": 26635.0,
-      "primary_net": -17443.0,
-      "secondary_long": 234201.0,
-      "secondary_short": 240587.0,
-      "secondary_net": -6386.0,
-      "tertiary_long": 4896.0,
-      "tertiary_short": null,
-      "tertiary_net": null,
-      "report_family": "disaggregated"
-    },
-    {
       "date": "2023-05-16T00:00:00.000",
       "market_name": "CRUDE OIL, LIGHT SWEET-WTI - ICE FUTURES EUROPE",
       "open_interest": 624796.0,
@@ -2349,29 +2334,24 @@
       "tertiary_short": null,
       "tertiary_net": null,
       "report_family": "disaggregated"
+    },
+    {
+      "date": "2026-05-05T00:00:00.000",
+      "market_name": "CRUDE OIL, LIGHT SWEET-WTI - ICE FUTURES EUROPE",
+      "open_interest": 1200949.0,
+      "primary_long": 11978.0,
+      "primary_short": 37656.0,
+      "primary_net": -25678.0,
+      "secondary_long": 549562.0,
+      "secondary_short": 401294.0,
+      "secondary_net": 148268.0,
+      "tertiary_long": 225.0,
+      "tertiary_short": null,
+      "tertiary_net": null,
+      "report_family": "disaggregated"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1682913600,
-      "close": 75.66000366210938
-    },
-    {
-      "timestamp": 1683000000,
-      "close": 71.66000366210938
-    },
-    {
-      "timestamp": 1683086400,
-      "close": 68.5999984741211
-    },
-    {
-      "timestamp": 1683172800,
-      "close": 68.55999755859375
-    },
-    {
-      "timestamp": 1683259200,
-      "close": 71.33999633789062
-    },
     {
       "timestamp": 1683518400,
       "close": 73.16000366210938
@@ -5374,7 +5354,27 @@
     },
     {
       "timestamp": 1777608000,
-      "close": 102.5
+      "close": 101.94000244140625
+    },
+    {
+      "timestamp": 1777867200,
+      "close": 106.41999816894531
+    },
+    {
+      "timestamp": 1777953600,
+      "close": 102.2699966430664
+    },
+    {
+      "timestamp": 1778040000,
+      "close": 95.08000183105469
+    },
+    {
+      "timestamp": 1778126400,
+      "close": 94.80999755859375
+    },
+    {
+      "timestamp": 1778212800,
+      "close": 94.68000030517578
     }
   ]
 }

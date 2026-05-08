@@ -11,23 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-05-09T00:00:00.000",
-      "market_name": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
-      "open_interest": 264599.0,
-      "primary_long": 56149.0,
-      "primary_short": 85997.0,
-      "primary_net": -29848.0,
-      "secondary_long": 82954.0,
-      "secondary_short": 38373.0,
-      "secondary_net": 44581.0,
-      "tertiary_long": 34203.0,
-      "tertiary_short": 44576.0,
-      "tertiary_net": -10373.0,
-      "other_long": 23210.0,
-      "other_short": 16714.0,
-      "report_family": "tff"
-    },
-    {
       "date": "2023-05-16T00:00:00.000",
       "market_name": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
       "open_interest": 283785.0,
@@ -2661,29 +2644,26 @@
       "other_long": 9804.0,
       "other_short": 2914.0,
       "report_family": "tff"
+    },
+    {
+      "date": "2026-05-05T00:00:00.000",
+      "market_name": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+      "open_interest": 315421.0,
+      "primary_long": 38173.0,
+      "primary_short": 94512.0,
+      "primary_net": -56339.0,
+      "secondary_long": 118978.0,
+      "secondary_short": 32325.0,
+      "secondary_net": 86653.0,
+      "tertiary_long": 53679.0,
+      "tertiary_short": 95941.0,
+      "tertiary_net": -42262.0,
+      "other_long": 9087.0,
+      "other_short": 2736.0,
+      "report_family": "tff"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1682913600,
-      "close": 13306.75
-    },
-    {
-      "timestamp": 1683000000,
-      "close": 13184.5
-    },
-    {
-      "timestamp": 1683086400,
-      "close": 13100.75
-    },
-    {
-      "timestamp": 1683172800,
-      "close": 13043.75
-    },
-    {
-      "timestamp": 1683259200,
-      "close": 13317.75
-    },
     {
       "timestamp": 1683518400,
       "close": 13352.25
@@ -5690,7 +5670,27 @@
     },
     {
       "timestamp": 1777608000,
-      "close": 27783.25
+      "close": 27835.75
+    },
+    {
+      "timestamp": 1777867200,
+      "close": 27776.0
+    },
+    {
+      "timestamp": 1777953600,
+      "close": 28136.0
+    },
+    {
+      "timestamp": 1778040000,
+      "close": 28716.75
+    },
+    {
+      "timestamp": 1778126400,
+      "close": 28682.25
+    },
+    {
+      "timestamp": 1778212800,
+      "close": 29333.75
     }
   ]
 }
