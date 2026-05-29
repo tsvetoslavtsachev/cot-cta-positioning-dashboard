@@ -11,21 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-05-30T00:00:00.000",
-      "market_name": "CORN - CHICAGO BOARD OF TRADE",
-      "open_interest": 1761882.0,
-      "primary_long": 171723.0,
-      "primary_short": 222788.0,
-      "primary_net": -51065.0,
-      "secondary_long": 483159.0,
-      "secondary_short": 631002.0,
-      "secondary_net": -147843.0,
-      "tertiary_long": 257877.0,
-      "tertiary_short": null,
-      "tertiary_net": null,
-      "report_family": "disaggregated"
-    },
-    {
       "date": "2023-06-06T00:00:00.000",
       "market_name": "CORN - CHICAGO BOARD OF TRADE",
       "open_interest": 1785372.0,
@@ -2349,29 +2334,24 @@
       "tertiary_short": null,
       "tertiary_net": null,
       "report_family": "disaggregated"
+    },
+    {
+      "date": "2026-05-26T00:00:00.000",
+      "market_name": "CORN - CHICAGO BOARD OF TRADE",
+      "open_interest": 2432970.0,
+      "primary_long": 368058.0,
+      "primary_short": 162554.0,
+      "primary_net": 205504.0,
+      "secondary_long": 485550.0,
+      "secondary_short": 1023548.0,
+      "secondary_net": -537998.0,
+      "tertiary_long": 395443.0,
+      "tertiary_short": null,
+      "tertiary_net": null,
+      "report_family": "disaggregated"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1684728000,
-      "close": 571.0
-    },
-    {
-      "timestamp": 1684814400,
-      "close": 577.5
-    },
-    {
-      "timestamp": 1684900800,
-      "close": 587.25
-    },
-    {
-      "timestamp": 1684987200,
-      "close": 590.75
-    },
-    {
-      "timestamp": 1685073600,
-      "close": 604.0
-    },
     {
       "timestamp": 1685419200,
       "close": 594.0
@@ -5370,7 +5350,23 @@
     },
     {
       "timestamp": 1779422400,
-      "close": 463.75
+      "close": 463.25
+    },
+    {
+      "timestamp": 1779768000,
+      "close": 457.5
+    },
+    {
+      "timestamp": 1779854400,
+      "close": 452.5
+    },
+    {
+      "timestamp": 1779940800,
+      "close": 455.75
+    },
+    {
+      "timestamp": 1780027200,
+      "close": 447.0
     }
   ]
 }

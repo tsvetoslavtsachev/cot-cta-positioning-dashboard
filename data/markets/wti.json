@@ -11,21 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-05-30T00:00:00.000",
-      "market_name": "CRUDE OIL, LIGHT SWEET-WTI - ICE FUTURES EUROPE",
-      "open_interest": 605875.0,
-      "primary_long": 4776.0,
-      "primary_short": 27984.0,
-      "primary_net": -23208.0,
-      "secondary_long": 261155.0,
-      "secondary_short": 262972.0,
-      "secondary_net": -1817.0,
-      "tertiary_long": 4261.0,
-      "tertiary_short": null,
-      "tertiary_net": null,
-      "report_family": "disaggregated"
-    },
-    {
       "date": "2023-06-06T00:00:00.000",
       "market_name": "CRUDE OIL, LIGHT SWEET-WTI - ICE FUTURES EUROPE",
       "open_interest": 644329.0,
@@ -2349,29 +2334,24 @@
       "tertiary_short": null,
       "tertiary_net": null,
       "report_family": "disaggregated"
+    },
+    {
+      "date": "2026-05-26T00:00:00.000",
+      "market_name": "CRUDE OIL, LIGHT SWEET-WTI - ICE FUTURES EUROPE",
+      "open_interest": 1103949.0,
+      "primary_long": 5250.0,
+      "primary_short": 29849.0,
+      "primary_net": -24599.0,
+      "secondary_long": 498253.0,
+      "secondary_short": 373770.0,
+      "secondary_net": 124483.0,
+      "tertiary_long": 0.0,
+      "tertiary_short": null,
+      "tertiary_net": null,
+      "report_family": "disaggregated"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1684728000,
-      "close": 71.98999786376953
-    },
-    {
-      "timestamp": 1684814400,
-      "close": 72.91000366210938
-    },
-    {
-      "timestamp": 1684900800,
-      "close": 74.33999633789062
-    },
-    {
-      "timestamp": 1684987200,
-      "close": 71.83000183105469
-    },
-    {
-      "timestamp": 1685073600,
-      "close": 72.66999816894531
-    },
     {
       "timestamp": 1685419200,
       "close": 69.45999908447266
@@ -5374,7 +5354,23 @@
     },
     {
       "timestamp": 1779422400,
-      "close": 97.0
+      "close": 96.5999984741211
+    },
+    {
+      "timestamp": 1779768000,
+      "close": 93.88999938964844
+    },
+    {
+      "timestamp": 1779854400,
+      "close": 88.68000030517578
+    },
+    {
+      "timestamp": 1779940800,
+      "close": 88.9000015258789
+    },
+    {
+      "timestamp": 1780027200,
+      "close": 87.76000213623047
     }
   ]
 }
