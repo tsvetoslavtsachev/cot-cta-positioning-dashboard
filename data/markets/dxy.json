@@ -11,23 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-06-06T00:00:00.000",
-      "market_name": "USD INDEX - ICE FUTURES U.S.",
-      "open_interest": 33930.0,
-      "primary_long": 11377.0,
-      "primary_short": 14100.0,
-      "primary_net": -2723.0,
-      "secondary_long": 11292.0,
-      "secondary_short": 1173.0,
-      "secondary_net": 10119.0,
-      "tertiary_long": 0.0,
-      "tertiary_short": 11163.0,
-      "tertiary_net": -11163.0,
-      "other_long": 3366.0,
-      "other_short": 2543.0,
-      "report_family": "tff"
-    },
-    {
       "date": "2023-06-13T00:00:00.000",
       "market_name": "USD INDEX - ICE FUTURES U.S.",
       "open_interest": 32050.0,
@@ -2661,25 +2644,26 @@
       "other_long": 3483.0,
       "other_short": 1703.0,
       "report_family": "tff"
+    },
+    {
+      "date": "2026-06-02T00:00:00.000",
+      "market_name": "USD INDEX - ICE FUTURES U.S.",
+      "open_interest": 43090.0,
+      "primary_long": 13727.0,
+      "primary_short": 24839.0,
+      "primary_net": -11112.0,
+      "secondary_long": 16430.0,
+      "secondary_short": 1427.0,
+      "secondary_net": 15003.0,
+      "tertiary_long": 3794.0,
+      "tertiary_short": 10773.0,
+      "tertiary_net": -6979.0,
+      "other_long": 3358.0,
+      "other_short": 1914.0,
+      "report_family": "tff"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1685419200,
-      "close": 104.16999816894531
-    },
-    {
-      "timestamp": 1685505600,
-      "close": 104.31999969482422
-    },
-    {
-      "timestamp": 1685592000,
-      "close": 103.55999755859375
-    },
-    {
-      "timestamp": 1685678400,
-      "close": 104.0199966430664
-    },
     {
       "timestamp": 1685937600,
       "close": 104.0
@@ -5682,7 +5666,27 @@
     },
     {
       "timestamp": 1780027200,
-      "close": 98.94200134277344
+      "close": 98.91000366210938
+    },
+    {
+      "timestamp": 1780286400,
+      "close": 99.19999694824219
+    },
+    {
+      "timestamp": 1780372800,
+      "close": 99.22000122070312
+    },
+    {
+      "timestamp": 1780459200,
+      "close": 99.52999877929688
+    },
+    {
+      "timestamp": 1780545600,
+      "close": 99.41000366210938
+    },
+    {
+      "timestamp": 1780632000,
+      "close": 100.07099914550781
     }
   ]
 }

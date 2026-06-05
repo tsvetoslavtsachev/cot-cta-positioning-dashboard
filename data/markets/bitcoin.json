@@ -11,23 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-06-06T00:00:00.000",
-      "market_name": "BITCOIN - CHICAGO MERCANTILE EXCHANGE",
-      "open_interest": 13026.0,
-      "primary_long": 2397.0,
-      "primary_short": 7625.0,
-      "primary_net": -5228.0,
-      "secondary_long": 6198.0,
-      "secondary_short": 368.0,
-      "secondary_net": 5830.0,
-      "tertiary_long": 567.0,
-      "tertiary_short": 2205.0,
-      "tertiary_net": -1638.0,
-      "other_long": 1126.0,
-      "other_short": 517.0,
-      "report_family": "tff"
-    },
-    {
       "date": "2023-06-13T00:00:00.000",
       "market_name": "BITCOIN - CHICAGO MERCANTILE EXCHANGE",
       "open_interest": 13251.0,
@@ -2661,37 +2644,26 @@
       "other_long": 421.0,
       "other_short": 329.0,
       "report_family": "tff"
+    },
+    {
+      "date": "2026-06-02T00:00:00.000",
+      "market_name": "BITCOIN - CHICAGO MERCANTILE EXCHANGE",
+      "open_interest": 19882.0,
+      "primary_long": 6269.0,
+      "primary_short": 12827.0,
+      "primary_net": -6558.0,
+      "secondary_long": 5256.0,
+      "secondary_short": 2153.0,
+      "secondary_net": 3103.0,
+      "tertiary_long": 5504.0,
+      "tertiary_short": 2033.0,
+      "tertiary_net": 3471.0,
+      "other_long": 365.0,
+      "other_short": 518.0,
+      "report_family": "tff"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1685318400,
-      "close": 27745.884765625
-    },
-    {
-      "timestamp": 1685404800,
-      "close": 27702.349609375
-    },
-    {
-      "timestamp": 1685491200,
-      "close": 27219.658203125
-    },
-    {
-      "timestamp": 1685577600,
-      "close": 26819.97265625
-    },
-    {
-      "timestamp": 1685664000,
-      "close": 27249.58984375
-    },
-    {
-      "timestamp": 1685750400,
-      "close": 27075.12890625
-    },
-    {
-      "timestamp": 1685836800,
-      "close": 27119.06640625
-    },
     {
       "timestamp": 1685923200,
       "close": 25760.09765625
@@ -7050,7 +7022,35 @@
     },
     {
       "timestamp": 1780012800,
-      "close": 73360.0234375
+      "close": 73372.5234375
+    },
+    {
+      "timestamp": 1780099200,
+      "close": 73754.8359375
+    },
+    {
+      "timestamp": 1780185600,
+      "close": 73579.6875
+    },
+    {
+      "timestamp": 1780272000,
+      "close": 71319.7734375
+    },
+    {
+      "timestamp": 1780358400,
+      "close": 66703.65625
+    },
+    {
+      "timestamp": 1780444800,
+      "close": 64014.3671875
+    },
+    {
+      "timestamp": 1780531200,
+      "close": 63801.57421875
+    },
+    {
+      "timestamp": 1780617600,
+      "close": 61545.8515625
     }
   ]
 }

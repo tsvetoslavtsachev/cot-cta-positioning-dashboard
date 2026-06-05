@@ -11,23 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-06-06T00:00:00.000",
-      "market_name": "VIX FUTURES - CBOE FUTURES EXCHANGE",
-      "open_interest": 417626.0,
-      "primary_long": 71959.0,
-      "primary_short": 103910.0,
-      "primary_net": -31951.0,
-      "secondary_long": 107968.0,
-      "secondary_short": 95198.0,
-      "secondary_net": 12770.0,
-      "tertiary_long": 47764.0,
-      "tertiary_short": 28409.0,
-      "tertiary_net": 19355.0,
-      "other_long": 8729.0,
-      "other_short": 7033.0,
-      "report_family": "tff"
-    },
-    {
       "date": "2023-06-13T00:00:00.000",
       "market_name": "VIX FUTURES - CBOE FUTURES EXCHANGE",
       "open_interest": 453169.0,
@@ -2661,25 +2644,26 @@
       "other_long": 1411.0,
       "other_short": 1346.0,
       "report_family": "tff"
+    },
+    {
+      "date": "2026-06-02T00:00:00.000",
+      "market_name": "VIX FUTURES - CBOE FUTURES EXCHANGE",
+      "open_interest": 410614.0,
+      "primary_long": 80763.0,
+      "primary_short": 113796.0,
+      "primary_net": -33033.0,
+      "secondary_long": 64339.0,
+      "secondary_short": 76855.0,
+      "secondary_net": -12516.0,
+      "tertiary_long": 93958.0,
+      "tertiary_short": 44621.0,
+      "tertiary_net": 49337.0,
+      "other_long": 1344.0,
+      "other_short": 2411.0,
+      "report_family": "tff"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1685430000,
-      "close": 17.459999084472656
-    },
-    {
-      "timestamp": 1685516400,
-      "close": 17.940000534057617
-    },
-    {
-      "timestamp": 1685602800,
-      "close": 15.649999618530273
-    },
-    {
-      "timestamp": 1685689200,
-      "close": 14.600000381469727
-    },
     {
       "timestamp": 1685948400,
       "close": 14.729999542236328
@@ -5679,6 +5663,26 @@
     {
       "timestamp": 1780038000,
       "close": 15.319999694824219
+    },
+    {
+      "timestamp": 1780297200,
+      "close": 16.049999237060547
+    },
+    {
+      "timestamp": 1780383600,
+      "close": 15.770000457763672
+    },
+    {
+      "timestamp": 1780470000,
+      "close": 16.059999465942383
+    },
+    {
+      "timestamp": 1780556400,
+      "close": 15.399999618530273
+    },
+    {
+      "timestamp": 1780642800,
+      "close": 21.510000228881836
     }
   ]
 }
