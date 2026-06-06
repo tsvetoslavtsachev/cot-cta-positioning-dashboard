@@ -768,8 +768,11 @@ function renderMarket(key) {
   const nets = cot.map(r => r.primary_net).filter(v => v != null);
   const currentNet = latest.primary_net;
 
-  const pctile = percentile(nets, currentNet);
-  const zs = zscore(nets, currentNet);
+  // A missing latest net is unknown, not 0 — percentile()/zscore() would coerce
+  // null to 0 and rank a phantom position, fabricating a false extreme.
+  const hasNet = currentNet != null;
+  const pctile = hasNet ? percentile(nets, currentNet) : null;
+  const zs = hasNet ? zscore(nets, currentNet) : null;
   const delta4w = prev4 ? (currentNet - prev4.primary_net) : 0;
 
   // Price 4W
@@ -793,8 +796,8 @@ function renderMarket(key) {
   netEl.className = 'kpi-value ' + signClass(currentNet);
 
   const pctEl = $('kpi-pct');
-  pctEl.textContent = pctile.toFixed(0) + 'th';
-  const pctColor = pctile >= 80 ? 'pos' : pctile <= 20 ? 'neg' : 'neu';
+  pctEl.textContent = pctile != null ? pctile.toFixed(0) + 'th' : '—';
+  const pctColor = pctile == null ? 'neu' : pctile >= 80 ? 'pos' : pctile <= 20 ? 'neg' : 'neu';
   pctEl.className = 'kpi-value ' + pctColor;
 
   const deltaEl = $('kpi-delta');
@@ -1052,7 +1055,7 @@ function renderWatchlist() {
         ${fmt(row.score, 0)}
         <span class="score-bar" style="width:${Math.min(row.score||0, 100)*0.6}px"></span>
       </td>
-      <td class="${row.primary_percentile >= 80 ? 'pos' : row.primary_percentile <= 20 ? 'neg' : 'neu'}">${fmt(row.primary_percentile, 0)}th</td>
+      <td class="${row.primary_percentile == null ? 'neu' : row.primary_percentile >= 80 ? 'pos' : row.primary_percentile <= 20 ? 'neg' : 'neu'}">${row.primary_percentile == null ? '—' : fmt(row.primary_percentile, 0) + 'th'}</td>
       <td class="${signClass(row.primary_delta_4w)}">${row.primary_delta_4w != null ? (row.primary_delta_4w >= 0 ? '+' : '') + fmt(row.primary_delta_4w) : '—'}</td>
       <td class="${signClass(row.price_change_4w_pct)}">${fmtPct(row.price_change_4w_pct)}</td>
       <td class="takeaway-cell">${row.takeaway||''}</td>
