@@ -11,21 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-06-13T00:00:00.000",
-      "market_name": "CORN - CHICAGO BOARD OF TRADE",
-      "open_interest": 1775421.0,
-      "primary_long": 166551.0,
-      "primary_short": 164406.0,
-      "primary_net": 2145.0,
-      "secondary_long": 465261.0,
-      "secondary_short": 672713.0,
-      "secondary_net": -207452.0,
-      "tertiary_long": 248935.0,
-      "tertiary_short": null,
-      "tertiary_net": null,
-      "report_family": "disaggregated"
-    },
-    {
       "date": "2023-06-20T00:00:00.000",
       "market_name": "CORN - CHICAGO BOARD OF TRADE",
       "open_interest": 1876435.0,
@@ -2349,25 +2334,24 @@
       "tertiary_short": null,
       "tertiary_net": null,
       "report_family": "disaggregated"
+    },
+    {
+      "date": "2026-06-09T00:00:00.000",
+      "market_name": "CORN - CHICAGO BOARD OF TRADE",
+      "open_interest": 2566213.0,
+      "primary_long": 277354.0,
+      "primary_short": 282679.0,
+      "primary_net": -5325.0,
+      "secondary_long": 597088.0,
+      "secondary_short": 936944.0,
+      "secondary_net": -339856.0,
+      "tertiary_long": 393803.0,
+      "tertiary_short": null,
+      "tertiary_net": null,
+      "report_family": "disaggregated"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1686024000,
-      "close": 608.0
-    },
-    {
-      "timestamp": 1686110400,
-      "close": 604.25
-    },
-    {
-      "timestamp": 1686196800,
-      "close": 610.25
-    },
-    {
-      "timestamp": 1686283200,
-      "close": 604.25
-    },
     {
       "timestamp": 1686542400,
       "close": 617.25
@@ -5367,6 +5351,26 @@
     {
       "timestamp": 1780632000,
       "close": 417.5
+    },
+    {
+      "timestamp": 1780891200,
+      "close": 418.75
+    },
+    {
+      "timestamp": 1780977600,
+      "close": 419.5
+    },
+    {
+      "timestamp": 1781064000,
+      "close": 419.0
+    },
+    {
+      "timestamp": 1781150400,
+      "close": 411.75
+    },
+    {
+      "timestamp": 1781236800,
+      "close": 413.25
     }
   ]
 }

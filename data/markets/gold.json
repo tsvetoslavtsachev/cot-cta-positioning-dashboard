@@ -11,21 +11,6 @@
   },
   "cot": [
     {
-      "date": "2023-06-13T00:00:00.000",
-      "market_name": "GOLD - COMMODITY EXCHANGE INC.",
-      "open_interest": 618147.0,
-      "primary_long": 126927.0,
-      "primary_short": 33623.0,
-      "primary_net": 93304.0,
-      "secondary_long": 23704.0,
-      "secondary_short": 51840.0,
-      "secondary_net": -28136.0,
-      "tertiary_long": 93368.0,
-      "tertiary_short": null,
-      "tertiary_net": null,
-      "report_family": "disaggregated"
-    },
-    {
       "date": "2023-06-20T00:00:00.000",
       "market_name": "GOLD - COMMODITY EXCHANGE INC.",
       "open_interest": 621664.0,
@@ -2349,25 +2334,24 @@
       "tertiary_short": null,
       "tertiary_net": null,
       "report_family": "disaggregated"
+    },
+    {
+      "date": "2026-06-09T00:00:00.000",
+      "market_name": "GOLD - COMMODITY EXCHANGE INC.",
+      "open_interest": 459311.0,
+      "primary_long": 125798.0,
+      "primary_short": 22138.0,
+      "primary_net": 103660.0,
+      "secondary_long": 14034.0,
+      "secondary_short": 36172.0,
+      "secondary_net": -22138.0,
+      "tertiary_long": 28819.0,
+      "tertiary_short": null,
+      "tertiary_net": null,
+      "report_family": "disaggregated"
     }
   ],
   "prices": [
-    {
-      "timestamp": 1686024000,
-      "close": 1965.5
-    },
-    {
-      "timestamp": 1686110400,
-      "close": 1942.699951171875
-    },
-    {
-      "timestamp": 1686196800,
-      "close": 1963.5999755859375
-    },
-    {
-      "timestamp": 1686283200,
-      "close": 1962.199951171875
-    },
     {
       "timestamp": 1686542400,
       "close": 1955.300048828125
@@ -5371,6 +5355,26 @@
     {
       "timestamp": 1780632000,
       "close": 4337.10009765625
+    },
+    {
+      "timestamp": 1780891200,
+      "close": 4335.89990234375
+    },
+    {
+      "timestamp": 1780977600,
+      "close": 4260.0
+    },
+    {
+      "timestamp": 1781064000,
+      "close": 4108.2001953125
+    },
+    {
+      "timestamp": 1781150400,
+      "close": 4090.300048828125
+    },
+    {
+      "timestamp": 1781236800,
+      "close": 4239.89990234375
     }
   ]
 }
