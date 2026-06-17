@@ -247,7 +247,9 @@ def normalize_disagg_row(row: Dict[str, Any]) -> Dict[str, Any]:
     producer_long = parse_num(row.get("prod_merc_positions_long"))
     producer_short = parse_num(row.get("prod_merc_positions_short"))
     swap_long = parse_num(row.get("swap_positions_long_all"))
-    swap_short = parse_num(row.get("swap_positions_short_all"))
+    # CFTC API quirk: long uses single underscore, short uses DOUBLE underscore.
+    # Using "swap_positions_short_all" silently returns None (cohort hidden in dashboard).
+    swap_short = parse_num(row.get("swap__positions_short_all"))
     oi = parse_num(row.get("open_interest_all"))
 
     # For disaggregated (commodity) reports the analytically correct pairing is
