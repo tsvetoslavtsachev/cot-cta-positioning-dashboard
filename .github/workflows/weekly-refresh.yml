@@ -1,9 +1,12 @@
 name: Weekly COT Refresh
 
+# RETIRED 2026-06-18 (INIT-22): cot-cta is being decommissioned. Its CTA trend
+# (trigger) layer is folded into cot-monitor; macro-satellite no longer ingests
+# this repo. The weekly schedule is disabled to stop auto-refresh + auto-deploy;
+# kept manual-only during the transition. Final teardown (archive repo + disable
+# GitHub Pages) is a manual Settings step.
 on:
-  schedule:
-    - cron: '0 21 * * 5'   # Friday 21:00 UTC = 5:00 PM ET, after CFTC 3:30 PM ET release
-  workflow_dispatch:        # Allow manual trigger
+  workflow_dispatch:        # Manual only — scheduled refresh disabled (retired)
 
 permissions:
   contents: write

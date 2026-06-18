@@ -1,3 +1,9 @@
+> ⚠️ **DEPRECATED — 2026-06-18 (INIT-22).** Този дашборд се извежда от употреба.
+> CTA тренд слоят (trigger нивата) е сгънат в **cot-monitor** (таб „CTA тренд");
+> `macro-satellite` вече не чете това repo. Седмичното обновяване е спряно (само ръчно).
+> Доларовите оценки и „CTA-vs-CFTC Gap" не се пренасят — бяха подвеждащи (виж INIT-22 одита).
+> Не добавяй ново тук — ползвай cot-monitor.
+
 # COT-CTA Positioning Dashboard — Minimum Viable GitHub Package
 
 This package is a practical starter repo for publishing a **weekly COT/CTA-style positioning dashboard** on GitHub.
